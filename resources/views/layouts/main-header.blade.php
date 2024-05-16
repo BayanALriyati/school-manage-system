@@ -27,15 +27,24 @@
             <!-- top bar right -->          
             <ul class="nav navbar-nav ml-auto">
                 <!--Creating a language selector -->
-                <ul>
-                  @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                      <li>
-                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                            {{ $properties['native'] }}
-                        </a>
-                      </li>
-                  @endforeach
-                </ul>
+                <div class="btn-group mb-1">
+                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      @if (App::getLocale() == 'ar')
+                      {{ LaravelLocalization::getCurrentLocaleName() }}
+                     <img src="{{ URL::asset('assets/images/flags/JO.png') }}" alt="">
+                      @else
+                      {{ LaravelLocalization::getCurrentLocaleName() }}
+                      <img src="{{ URL::asset('assets/images/flags/US.png') }}" alt="">
+                      @endif
+                      </button>
+                    <div class="dropdown-menu">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                        @endforeach
+                    </div>
+                </div>
                 
                 <li class="nav-item fullscreen">
                     <a id="btnFullscreen" href="#" class="nav-link"><i class="ti-fullscreen"></i></a>
