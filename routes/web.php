@@ -15,16 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 	// routes/web.php
 	Auth::routes();
-	Route::get('/', function()
+	
+	Route::group(['middleware' => ['guest']],function(){
+        Route::get('/', function()
 	{
 		return view('auth.login');
+	});
+
 	});
 
 	//refresh the website save the language
 	Route::group(
 		[
 			'prefix' => LaravelLocalization::setLocale(),
-			'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+			'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ]
 		], function(){ 
 	                /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 	                // Route::get('/', function()
@@ -32,9 +36,10 @@ use Illuminate\Support\Facades\Route;
                     //     return view('dashboard');
 	                // });
                
-		
-					Route::resource('grade', 'GradeController');
-		}); 
+					Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+					Route::group(['namespace' => 'Grades'], function () { //file in Controller (Grades)
+						Route::resource('Grades', 'GradeController');
+					});		}); 
 
 			
 	
@@ -48,4 +53,3 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');

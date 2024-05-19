@@ -1,6 +1,7 @@
 <?php 
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Grades;
+use App\Http\Controllers\Controller ;
+use App\Models\Grade;
 
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class GradeController extends Controller
    */
   public function index()
   {
-    
+    // جلب جميع السجلات من جدول الدرجات (Grades) باستخدام نموذج Grade(جلب البيانات من قاعدة البيانات)
+    $Grades = Grade ::all();
+    //يتم استخدام وظيفة compact لإنشاء مصفوفة تحتوي على البيانات المطلوبة
+    return view("pages.Grades.Grades",compact('Grades')); 
   }
 
   /**

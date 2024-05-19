@@ -1,6 +1,6 @@
 <?php
 
-namespace Grade;
+namespace App\Models\Grade;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,8 +1,0 @@
-<?php
-
-return [
-    
-    'Dashboard' => 'Dashboard'
- 
-
-];

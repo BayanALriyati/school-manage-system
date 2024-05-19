@@ -10,7 +10,7 @@
             <!-- Top bar left -->
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a id="button-toggle" class="button-toggle-nav inline-block ml-20 pull-left"
+                     <a id="button-toggle" class="button-toggle-nav inline-block ml-20 pull-left"
                         href="javascript:void(0);"><i class="zmdi zmdi-menu ti-align-right"></i></a>
                 </li>
                 <li class="nav-item">
