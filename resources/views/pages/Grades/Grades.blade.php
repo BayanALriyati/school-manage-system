@@ -44,10 +44,25 @@
                     </ul>
                 </div>
             @endif
-
-            <button type="button" class="button x-small" data-toggle="modal" data-target="#exampleModal">
-                {{ trans('Grades_trans.add_Grade') }}
-            </button>
+          
+    
+        <div class="container text-center">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-2">
+                <button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
+                    {{ trans('Grades_trans.add_Grade') }}
+                </button>
+              </div>
+              <div class="col col-lg-2">
+                {{-- <button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#exampleModal">
+                    {{ trans('Grades_trans.Delete_all') }}
+                </button>  --}}
+                <button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#deleteAllGradesModal" title="{{ trans('Grades_trans.Delete_all') }}">
+                    <i class="fa fa-trash"></i> {{ trans('Grades_trans.Delete_all') }}
+                </button>
+              </div>
+            </div>
+          </div>
             <br><br>
 
             <div class="table-responsive">
@@ -107,6 +122,7 @@
                                                             :</label>
                                                         <input id="Name" type="text" name="Name"
                                                             class="form-control"
+                                                            {{-- يجيب الترجمه من الداتا بييز  getTranslation--}}
                                                             value="{{ $Grade->getTranslation('Name', 'ar') }}"
                                                             required>
                                                         <input id="id" type="hidden" name="id" class="form-control"
@@ -139,7 +155,7 @@
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
                                                     <button type="submit"
-                                                        class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                                        class="btn btn-success">{{ trans('Grades_trans.Save_data') }}</button>
                                                 </div>
                                             </form>
 
@@ -149,7 +165,7 @@
                             </div>
 
                             <!-- delete_modal_Grade -->
-                            {{-- <div class="modal fade" id="delete{{ $Grade->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="delete{{ $Grade->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -167,20 +183,26 @@
                                             <form action="{{ route('Grades.destroy', 'test') }}" method="post">
                                                 {{ method_field('Delete') }}
                                                 @csrf
-                                                {{ trans('Grades_trans.Warning_Grade') }}
+                                                <h6>{{ trans('Grades_trans.Warning_Grade') }}</h6>
+                                                <input id="Name" type="text" name="Name"
+                                                            class="form-control"
+                                                            value="({{$Grade->getTranslation('Name', 'ar')}}),({{$Grade->getTranslation('Name', 'en')}}) "
+                                                            required>
                                                 <input id="id" type="hidden" name="id" class="form-control"
                                                     value="{{ $Grade->id }}">
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
                                                     <button type="submit"
-                                                        class="btn btn-danger">{{ trans('Grades_trans.submit') }}</button>
+                                                        class="btn btn-danger">{{ trans('Grades_trans.Save_data') }}</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
+
+                            
 
 
                         @endforeach
@@ -189,7 +211,29 @@
         </div>
     </div>
 </div>
-
+<!-- deleteAll_modal_Grade-->
+<div class="modal fade" id="deleteAllGradesModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllGradesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+       <div class="modal-header">
+            <h5 class="modal-title" id="deleteAllGradesModalLabel">{{ trans('Grades_trans.Delete_all') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+       </div>
+           <div class="modal-body">
+               <h6>{{ trans('Grades_trans.Are_you_sure') }}</h6>
+               </div>
+                 <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
+                   <form method="POST" action="{{ route('Grades.destroyAll') }}">
+                       @csrf
+                       <button type="submit" class="btn btn-danger">{{ trans('Grades_trans.Delete_all') }}</button>
+                   </form>
+                 </div>
+           </div>
+       </div>
+   </div>
 
 <!-- add_modal_Grade -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -237,7 +281,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
-                <button type="submit" class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                <button type="submit" class="btn btn-success">{{ trans('Grades_trans.Save_data') }}</button>
             </div>
             </form>
 

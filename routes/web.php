@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Grades\GradeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +39,12 @@ use Illuminate\Support\Facades\Route;
                
 					Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 					Route::group(['namespace' => 'Grades'], function () { //file in Controller (Grades)
-						Route::resource('Grades', 'GradeController');
-					});		}); 
+					Route::resource('Grades', 'GradeController');
+					});		
+					Route::post('Grades/destroyAll', [GradeController::class, 'destroyAll'])->name('Grades.destroyAll');
+					// Route::resource('Grades', GradeController::class);
+
+				}); 
 
 			
 	

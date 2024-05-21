@@ -96,7 +96,7 @@ return [
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => ' :attribute هذا الحقل مطلوب.',
+    'required' => 'حقل :attribute  مطلوب.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -146,6 +146,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [      
+          'Name' => 'الاسم باللغة العربية',
+          'Name_en' => 'الاسم باللغة الانجيلزية',
+          'Notes' => 'ملاحظات بالعربية',
+          'Notes_en' => 'ملاحظات بالانجيلزية',          
+],
 
+    
 ];

@@ -50,7 +50,7 @@ header start-->
 
         <li class="nav-item fullscreen">
             <a id="btnFullscreen" href="#" class="nav-link"><i class="ti-fullscreen"></i></a>
-        </li>
+        </ li>
         <li class="nav-item dropdown ">
             <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                 aria-expanded="false">

@@ -5,6 +5,7 @@ use App\Models\Grade;
 use App\Http\Requests\StoreGrades;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GradeController extends Controller 
 {
@@ -97,9 +98,23 @@ class GradeController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(StoreGrades $request)
   {
-    
+    // return $request ;
+    try {
+    $validated = $request->validated();
+     $Grades = Grade::findOrFail($request->id);
+          $Grades->update([
+            $Grades->Name = ['en' => $request->Name_en, 'ar' => $request->Name],
+            $Grades->Notes = ['en' => $request->Name_en, 'ar' => $request->Notes] 
+          ]);
+          toastr()->success(trans('messages.Update'));
+          return redirect()->route('Grades.index');
+        }
+
+        catch (\Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
   }
 
   /**
@@ -108,11 +123,22 @@ class GradeController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Request $request)
   {
-    
+    $Grades = Grade::findOrFail($request->id)->delete();
+    toastr()->error(trans('messages.Delete'));
+    return redirect()->route('Grades.index');
   }
+
+  public function destroyAll()
+{
+    Grade::truncate(); 
+    // DB::table('Grades')->delete();
+    toastr()->error(trans('messages.Delete_all'));
+    return redirect()->route('Grades.index');
+}
   
+
 }
 
 ?>
