@@ -20,7 +20,7 @@ return [
     'Edit'=>'Edit',
      'Delete_all'=> 'Delete all',
      'Are_you_sure'=> 'Are you sure to delete all Grades',
-    'exists'=>'This field already exists',
+    'exists'=>'This stage already exists',
     'Delete'=>'Delete',
     'Close' => 'Close',
 
