@@ -25,9 +25,7 @@
             <li class="breadcrumb-item active">{{ trans('Grades_trans.List_Grade') }}</li>
         </ol>
     </div>
-@if ($errors->any())
-    <div class="error">{{ $errors->first('Name') }}</div>
-@endif
+
 
 
 
@@ -46,7 +44,7 @@
             @endif
           
     
-        <div class="container text-center">
+          <div class="container text-center">
             <div class="row justify-content-md-center">
               <div class="col col-lg-2">
                 <button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
@@ -54,9 +52,6 @@
                 </button>
               </div>
               <div class="col col-lg-2">
-                {{-- <button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#exampleModal">
-                    {{ trans('Grades_trans.Delete_all') }}
-                </button>  --}}
                 <button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#deleteAllGradesModal" title="{{ trans('Grades_trans.Delete_all') }}">
                     <i class="fa fa-trash"></i> {{ trans('Grades_trans.Delete_all') }}
                 </button>
@@ -214,26 +209,26 @@
 <!-- deleteAll_modal_Grade-->
 <div class="modal fade" id="deleteAllGradesModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllGradesModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-       <div class="modal-header">
+       <div class="modal-content">
+         <div class="modal-header">
             <h5 class="modal-title" id="deleteAllGradesModalLabel">{{ trans('Grades_trans.Delete_all') }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-       </div>
+         </div>
            <div class="modal-body">
                <h6>{{ trans('Grades_trans.Are_you_sure') }}</h6>
-               </div>
-                 <div class="modal-footer">
+           </div>
+                <div class="modal-footer">
                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
                    <form method="POST" action="{{ route('Grades.destroyAll') }}">
                        @csrf
                        <button type="submit" class="btn btn-danger">{{ trans('Grades_trans.Delete_all') }}</button>
                    </form>
-                 </div>
-           </div>
+                </div>
        </div>
-   </div>
+    </div>
+</div>
 
 <!-- add_modal_Grade -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

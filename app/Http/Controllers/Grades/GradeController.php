@@ -136,8 +136,8 @@ class GradeController extends Controller
 
   public function destroyAll()
 {
-    Grade::truncate(); 
-    // DB::table('Grades')->delete();
+    // Grade::truncate(); 
+    DB::table('Grades')->delete();
     toastr()->error(trans('messages.Delete_all'));
     return redirect()->route('Grades.index');
 }

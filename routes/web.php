@@ -24,36 +24,29 @@ use Illuminate\Support\Facades\Route;
 	});
 
 	});
-
 	//refresh the website save the language
-	Route::group(
-		[
-			'prefix' => LaravelLocalization::setLocale(),
-			'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ]
-		], function(){ 
-	                /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-	                // Route::get('/', function()
-	                // {
-                    //     return view('dashboard');
-	                // });
-               
-					Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-					Route::group(['namespace' => 'Grades'], function () { //file in Controller (Grades)
-					Route::resource('Grades', 'GradeController');
-					});		
-					Route::post('Grades/destroyAll', [GradeController::class, 'destroyAll'])->name('Grades.destroyAll');
-					// Route::resource('Grades', GradeController::class);
+ //==============================Translate all pages============================
+ Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
+    ], function () {
 
-				}); 
+     //==============================dashboard============================
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
-			
-	
+   //==============================Grades============================
+    Route::group(['namespace' => 'Grades'], function () {
+        Route::resource('Grades', 'GradeController');
+    });
+	Route::post('Grades/destroyAll', [GradeController::class, 'destroyAll'])->name('Grades.destroyAll');
+    //==============================Classrooms============================
+    Route::group(['namespace' => 'Classrooms'], function () {
+        Route::resource('Classrooms', 'ClassroomController');
+    });
 
-/** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
+});
 
 
 

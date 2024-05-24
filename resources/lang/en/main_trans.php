@@ -10,6 +10,7 @@ return [
     'Grades'=>'Grades',
     'Grades_list'=>'Grades List',
     'classes'=>'Classes',
+    'List_classes'=>'List classes',
     'sections'=>'Sections',
     'students'=>'Students',
     'Teachers'=>'Teachers',
@@ -18,7 +19,7 @@ return [
     'Attendance'=>'Attendance',
     'Exams'=>'Exams',
     'library'=>'Library',
-    'Onlineclasses'=>'Online classes',
+    'Onlineclasse s'=>'Online classes',
     'Settings'=>'Settings',
     'Users'=>'Users',
 

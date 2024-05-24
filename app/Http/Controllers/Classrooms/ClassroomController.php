@@ -1,6 +1,12 @@
 <?php 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Classrooms;
+use App\Http\Controllers\Controller;
+use App\Models\Grade;
+use App\Models\Classroom;
+use App\Http\Requests\StoreClassroom;
+
+
 
 use Illuminate\Http\Request;
 
@@ -14,7 +20,11 @@ class ClassroomController extends Controller
    */
   public function index()
   {
-    
+    $My_Classes = Classroom ::all();
+    $Grades = Grade ::all();
+    return view("pages.My_Classes.My_Classes", compact('My_Classes','Grades')); 
+    // echo "hhhhh";
+
   }
 
   /**
@@ -32,9 +42,34 @@ class ClassroomController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(StoreClassroom $request)
   {
-    
+      $validated = $request->validated();
+
+      $List_Classes = $request->List_Classes;
+
+      try {
+
+          // $validated = $request->validated();
+          foreach ($List_Classes as $List_Class) {
+
+              $My_Classes = new Classroom();
+
+              $My_Classes->Name_class = ['en' => $List_Class['Name_class_en'], 'ar' => $List_Class['Name']];
+
+              $My_Classes->Grade_id = $List_Class['Grade_id'];
+
+              $My_Classes->save();
+              
+
+          }
+
+          toastr()->success(trans('messages.success'));
+          return redirect()->route('Classrooms.index');
+      } catch (\Exception $e) {
+          return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+      }
+
   }
 
   /**
