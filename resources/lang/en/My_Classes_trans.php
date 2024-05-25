@@ -7,7 +7,8 @@ return [
     'add_class' => 'Add class',
     'edit_class'=> 'Edit class',
     'delete_class'=> 'Delete class',
-    'Warning_Grade'=> 'Are Sure Of The Deleting Process ?',
+    'delete_checkbox'=> 'Delete Selected',
+    'Warning_class'=> 'Are Sure Of The Deleting Process ?',
     'submit' => 'submit',
     'Name_class'=>'Name class ar',
     'Name_class_en'=>'Name class en',
@@ -17,6 +18,8 @@ return [
     'Processes'=>'Processes',
     'Edit'=>'Edit',
     'Delete'=>'Delete',
+    'Delete_all'=> 'Delete all',
+    'Are_you_sure'=> 'Are you sure to delete all Classes',
     'Close' => 'Close',
     'grades_available'=>'No grades available',
     'select_grade'=>'Select grade'

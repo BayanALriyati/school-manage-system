@@ -15,6 +15,15 @@
 @section('content')
 <!-- row -->
 <div class="row">
+    <div class="col-sm-6">
+        <h4 class="mb-0"> {{ trans('My_Classes_trans.List_classes') }}</h4>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
+            <li class="breadcrumb-item"><a href="#" class="default-color">Home</a></li>
+            <li class="breadcrumb-item active">{{ trans('My_Classes_trans.List_classes') }}</li>
+        </ol>
+    </div>
 
 <div class="col-xl-12 mb-30">
     <div class="card card-statistics h-100">
@@ -34,13 +43,18 @@
                 <div class="row justify-content-md-center">
                   <div class="col col-lg-2">
                     <button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('Grades_trans.add_Grade') }}
+                        {{ trans('My_Classes_trans.add_class') }}
                     </button>
                   </div>
-                  <div class="col col-lg-2">
-                    <button type="button" class="btn-lg btn-danger" data-toggle="modal" data-target="#deleteAllGradesModal" title="{{ trans('Grades_trans.Delete_all') }}">
-                        <i class="fa fa-trash"></i> {{ trans('Grades_trans.Delete_all') }}
+                  <div class="col col-lg-3">
+                    {{-- <button type="button" class="btn-lg btn-danger" id="btn_delete_all" data-toggle="modal" >
+                        <i class="fa fa-trash"></i>
+                          {{ trans('My_Classes_trans.delete_checkbox') }}
+                    </button> --}}
+                    <button type="button" class="btn-danger btn-lg" id="btn_delete_all">
+                        {{ trans('My_Classes_trans.delete_checkbox') }}
                     </button>
+    
                   </div>
                 </div>
               </div>
@@ -51,6 +65,7 @@
                     style="text-align: center">
                     <thead>
                         <tr>
+                            <th><input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)" /></th>
                             <th>#</th>
                             <th>{{ trans('My_Classes_trans.Name_class') }}</th>
                             <th>{{ trans('My_Classes_trans.Name_Grade') }}</th>
@@ -62,6 +77,7 @@
                         @foreach ($My_Classes as $My_Class)
                             <tr>
                                 <?php $i++; ?>
+                                <td><input type="checkbox"  value="{{ $My_Class->id }}" class="box1" ></td>
                                 <td>{{ $i }}</td>
                                 <td>{{ $My_Class->Name_class }}</td>
                                 <td>{{ $My_Class->Grades->Name }}</td>
@@ -77,7 +93,7 @@
                             </tr>
 
                             <!-- edit_modal_Grade -->
-                            {{-- <div class="modal fade" id="edit{{ $My_Class->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="edit{{ $My_Class->id }}" tabindex="-1" role="dialog"
                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -103,8 +119,8 @@
                                                             :</label>
                                                         <input id="Name" type="text" name="Name"
                                                                class="form-control"
-                                                               value="{{ $My_Class->getTranslation('Name_Class', 'ar') }}"
-                                                               required>
+                                                               value="{{ $My_Class->getTranslation('Name_class', 'ar') }}"
+                                                               >
                                                         <input id="id" type="hidden" name="id" class="form-control"
                                                                value="{{ $My_Class->id }}">
                                                     </div>
@@ -113,8 +129,8 @@
                                                                class="mr-sm-2">{{ trans('My_Classes_trans.Name_class_en') }}
                                                             :</label>
                                                         <input type="text" class="form-control"
-                                                               value="{{ $My_Class->getTranslation('Name_Class', 'en') }}"
-                                                               name="Name_en" required>
+                                                               value="{{ $My_Class->getTranslation('Name_class', 'en') }}"
+                                                               name="Name_en" >
                                                     </div>
                                                 </div><br>
                                                 <div class="form-group">
@@ -138,20 +154,20 @@
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">{{ trans('Grades_trans.Close') }}</button>
+                                                            data-dismiss="modal">{{ trans('My_Classes_trans.Close') }}</button>
                                                     <button type="submit"
-                                                            class="btn btn-success">{{ trans('Grades_trans.submit') }}</button>
+                                                            class="btn btn-success">{{ trans('My_Classes_trans.submit') }}</button>
                                                 </div>
                                             </form>
 
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
 
 
                             <!-- delete_modal_Grade -->
-                            {{-- <div class="modal fade" id="delete{{ $My_Class->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="delete{{ $My_Class->id }}" tabindex="-1" role="dialog"
                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -170,7 +186,11 @@
                                                   method="post">
                                                 {{ method_field('Delete') }}
                                                 @csrf
-                                                {{ trans('My_Classes_trans.Warning_Grade') }}
+                                                <h6>{{ trans('My_Classes_trans.Warning_class') }}</h6>
+                                                <input id="Name" type="text" name="Name"
+                                                            class="form-control"
+                                                            value="({{$My_Class->getTranslation('Name_class', 'ar')}}),({{$My_Class->getTranslation('Name_class', 'en')}}) "
+                                                            required>
                                                 <input id="id" type="hidden" name="id" class="form-control"
                                                        value="{{ $My_Class->id }}">
                                                 <div class="modal-footer">
@@ -183,7 +203,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         @endforeach
                 </table>
             </div>
@@ -191,7 +211,29 @@
     </div>
 </div>
 
-
+<!-- deleteAll_modal_Grade-->
+<div class="modal fade" id="deleteAllGradesModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllGradesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="deleteAllGradesModalLabel">{{ trans('My_Classes_trans.Delete_all') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+           <div class="modal-body">
+               <h6>{{ trans('My_Classes_trans.Are_you_sure') }}</h6>
+           </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('My_Classes_trans.Close') }}</button>
+                   <form method="POST" action="{{ route('Grades.destroyAll') }}">
+                       @csrf
+                       <button type="submit" class="btn btn-danger">{{ trans('My_Classes_trans.Delete_all') }}</button>
+                   </form>
+                </div>
+       </div>
+    </div>
+</div>
 <!-- add_modal_class -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -227,7 +269,7 @@
                                             <label for="Name"
                                                 class="mr-sm-2">{{ trans('My_Classes_trans.Name_class_en') }}
                                                 :</label>
-                                            <input class="form-control" type="text" name="Name_class_en" />
+                                            <input class="form-control" type="text" name="Name_class_en"/>
                                         </div>
 
 
@@ -281,8 +323,40 @@
 
     </div>
 
+  </div>
 </div>
+<!-- حذف مجموعة صفوف -->
+<!-- Delete rowgroup -- حذف مجموعة صفوف --->
+<div class="modal fade" id="delete_all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="font-family: 'Cairo', sans-serif;" class="modal-title" id="exampleModalLabel">
+                    {{ trans('My_Classes_trans.delete_class') }}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="" method="POST">
+                {{ csrf_field() }}
+                <div class="modal-body">
+                    {{ trans('My_Classes_trans.Warning_class') }}
+                    <input class="text" type="hidden" id="delete_all_id" name="delete_all_id" value=''>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">{{ trans('My_Classes_trans.Close') }}</button>
+                    <button type="submit" class="btn btn-danger">{{ trans('My_Classes_trans.submit') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 {{-- </div>
 
 </div> --}}
@@ -292,4 +366,21 @@
 @section('js')
 @toastr_js
 @toastr_render
+
+<script type="text/javascript">
+    $(function() {
+        $("#btn_delete_all").click(function() {
+            var selected = new Array();
+            $("#datatable input[type=checkbox]:checked").each(function() {
+                selected.push(this.value);
+            });
+
+            if (selected.length > 0) {
+                $('#delete_all').modal('show')
+                $('input[id="delete_all_id"]').val(selected);
+            }
+        });
+    });
+
+</script>
 @endsection

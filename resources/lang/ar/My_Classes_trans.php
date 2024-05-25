@@ -7,6 +7,7 @@ return [
   'add_class' => 'اضافة صف',
   'edit_class'=> 'تعديل صف',
   'delete_class'=> 'حذف صف',
+  'delete_checkbox'=> 'حذف الصفوف المختارة',
   'Warning_class'=> 'هل انت متاكد من عملية الحذف ؟',
   'stage_name_ar' => 'اسم الصف بالعربية',
   'stage_name_en' => 'اسم الصف بالانجليزية',
@@ -19,6 +20,8 @@ return [
   'Processes'=>'العمليات',
   'Edit'=>'تعديل',
   'Delete'=>'حذف',
+  'Delete_all'=> 'حذف كل الصفوف',
+  'Are_you_sure'=> 'هل أنت متأكد من حذف جميع الصفوف',
   'Close' => 'اغلاق',
   'grades_available'=>'لا توجد مراحل متاحة',
   'select_grade'=>'اختر المرحلة'

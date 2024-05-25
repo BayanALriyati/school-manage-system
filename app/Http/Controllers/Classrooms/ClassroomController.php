@@ -5,8 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Grade;
 use App\Models\Classroom;
 use App\Http\Requests\StoreClassroom;
-
-
+use App\Http\Requests\StoreUpdateClass;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -42,33 +42,31 @@ class ClassroomController extends Controller
    *
    * @return Response
    */
-  public function store(StoreClassroom $request)
+  public function store(Storeclassroom $request)
   {
-      $validated = $request->validated();
 
-      $List_Classes = $request->List_Classes;
+    $List_Classes = $request->List_Classes;
 
-      try {
+    try {
 
-          // $validated = $request->validated();
-          foreach ($List_Classes as $List_Class) {
+        $validated = $request->validated();
+        foreach ($List_Classes as $List_Class) {
 
-              $My_Classes = new Classroom();
+            $My_Classes = new Classroom();
 
-              $My_Classes->Name_class = ['en' => $List_Class['Name_class_en'], 'ar' => $List_Class['Name']];
+            $My_Classes->Name_class = ['en' => $List_Class['Name_class_en'], 'ar' => $List_Class['Name']];
 
-              $My_Classes->Grade_id = $List_Class['Grade_id'];
+            $My_Classes->Grade_id = $List_Class['Grade_id'];
 
-              $My_Classes->save();
-              
+            $My_Classes->save();
 
-          }
+        }
 
-          toastr()->success(trans('messages.success'));
-          return redirect()->route('Classrooms.index');
-      } catch (\Exception $e) {
-          return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-      }
+        toastr()->success(trans('messages.success'));
+        return redirect()->route('Classrooms.index');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    }
 
   }
 
@@ -100,8 +98,23 @@ class ClassroomController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(StoreUpdateClass $request)
   {
+  
+  try {
+    $validated = $request->validated();
+     $Classrooms = Classroom::findOrFail($request->id);
+          $Classrooms->update([
+            $Classrooms->Name_class = ['en' => $request->Name_en, 'ar' => $request->Name],
+            $Classrooms->Grade_id = $request->Grade_id,
+          ]);
+          toastr()->success(trans('messages.Update'));
+          return redirect()->route('Classrooms.index');
+        }
+
+        catch (\Exception $e){
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     
   }
 
@@ -111,9 +124,18 @@ class ClassroomController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Request $request)
   {
-    
+    $Classrooms = Classroom::findOrFail($request->id)->delete();
+    toastr()->error(trans('messages.Delete'));
+    return redirect()->route('Classrooms.index');
+  }
+  public function destroyAll()
+  {
+      // Classrooms::truncate(); 
+      DB::table('Classrooms')->delete();
+      toastr()->error(trans('messages.Delete_all'));
+      return redirect()->route('Classrooms.index');
   }
   
 }
