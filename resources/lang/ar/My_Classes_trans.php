@@ -12,6 +12,7 @@ return [
   'stage_name_ar' => 'اسم الصف بالعربية',
   'stage_name_en' => 'اسم الصف بالانجليزية',
   'submit' => 'حفظ البيانات',
+  'Search_By_Grade'=> 'بحث باسم المرحلة',
   'Name_class'=>'اسم الصف بالعربية',
   'Name_class_en'=>'اسم الصف بالانجلزية',
   'Name_Grade'=>'اسم المرحلة',

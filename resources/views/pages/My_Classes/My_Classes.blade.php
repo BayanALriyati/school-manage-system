@@ -38,26 +38,38 @@
                     </ul>
                 </div>
             @endif
-
-            <div class="container text-center">
-                <div class="row justify-content-md-center">
-                  <div class="col col-lg-2">
-                    <button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
-                        {{ trans('My_Classes_trans.add_class') }}
-                    </button>
-                  </div>
-                  <div class="col col-lg-3">
-                    {{-- <button type="button" class="btn-lg btn-danger" id="btn_delete_all" data-toggle="modal" >
-                        <i class="fa fa-trash"></i>
-                          {{ trans('My_Classes_trans.delete_checkbox') }}
-                    </button> --}}
-                    <button type="button" class="btn-danger btn-lg" id="btn_delete_all">
-                        {{ trans('My_Classes_trans.delete_checkbox') }}
-                    </button>
-    
-                  </div>
+    <div class="container text-center">
+        <div class="row d-flex justify-content-between">
+            <div class="d-flex justify-content-start">
+                <div class="me-auto p-3">
+                        <button type="button" class="btn-lg btn-success" data-toggle="modal" data-target="#exampleModal">
+                            {{ trans('My_Classes_trans.add_class') }}
+                        </button>
                 </div>
-              </div>
+                <div class="me-auto p-3">
+                        <button type="button" class="btn-danger btn-lg" id="btn_delete_all" data-toggle="modal">
+                            <i class="fa fa-trash"></i>
+                            {{ trans('My_Classes_trans.delete_checkbox') }}
+                        </button>
+                </div>
+            </div>
+            <div class="me-auto p-3">
+                    <form action="{{ route('Filter_Classes') }}" method="POST">
+                      @csrf    
+                      <select class="fancyselect form-select-lg mb-3" aria-label="Large select example" data-style="btn-info" name="Grade_id" required
+                              onchange="this.form.submit()">
+                          <option value="" selected disabled>{{ trans('My_Classes_trans.Search_By_Grade') }}</option>
+                          @foreach ($Grades as $Grade)
+                              <option value="{{ $Grade->id }}">{{ $Grade->Name }}</option>
+                          @endforeach
+                      </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+              <br><br>
+              
+
                 <br><br>
 
             <div class="table-responsive">
@@ -73,8 +85,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (isset($details))
+
+                            <?php $List_Classes = $details; ?>
+                         @else
+
+                            <?php $List_Classes = $My_Classes; ?>
+                         @endif
+
                         <?php $i = 0; ?>
-                        @foreach ($My_Classes as $My_Class)
+                        @foreach ($List_Classes as $My_Class)
                             <tr>
                                 <?php $i++; ?>
                                 <td><input type="checkbox"  value="{{ $My_Class->id }}" class="box1" ></td>
@@ -211,29 +231,7 @@
     </div>
 </div>
 
-<!-- deleteAll_modal_Grade-->
-<div class="modal fade" id="deleteAllGradesModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllGradesModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="deleteAllGradesModalLabel">{{ trans('My_Classes_trans.Delete_all') }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-           <div class="modal-body">
-               <h6>{{ trans('My_Classes_trans.Are_you_sure') }}</h6>
-           </div>
-                <div class="modal-footer">
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('My_Classes_trans.Close') }}</button>
-                   <form method="POST" action="{{ route('Grades.destroyAll') }}">
-                       @csrf
-                       <button type="submit" class="btn btn-danger">{{ trans('My_Classes_trans.Delete_all') }}</button>
-                   </form>
-                </div>
-       </div>
-    </div>
-</div>
+
 <!-- add_modal_class -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -280,6 +278,7 @@
 
                                             <div class="box">
                                                 <select class="fancyselect" name="Grade_id">
+                                                    <option value="" selected disabled>{{ trans('My_Classes_trans.Name_Grade') }}</option>
                                                     @foreach ($Grades as $Grade)
                                                         <option value="{{ $Grade->id }}">{{ $Grade->Name }}</option>
                                                     @endforeach
@@ -340,11 +339,15 @@
                 </button>
             </div>
 
-            <form action="" method="POST">
-                {{ csrf_field() }}
+            <form action="{{ route('delete_all') }}" method="POST">
+                @csrf
                 <div class="modal-body">
                     {{ trans('My_Classes_trans.Warning_class') }}
                     <input class="text" type="hidden" id="delete_all_id" name="delete_all_id" value=''>
+
+                    <input type="text" class="form-control" id="delete_all_Name_class" name="delete_all_Name_class" 
+                    value="" 
+                    required>
                 </div>
 
                 <div class="modal-footer">
@@ -366,21 +369,4 @@
 @section('js')
 @toastr_js
 @toastr_render
-
-<script type="text/javascript">
-    $(function() {
-        $("#btn_delete_all").click(function() {
-            var selected = new Array();
-            $("#datatable input[type=checkbox]:checked").each(function() {
-                selected.push(this.value);
-            });
-
-            if (selected.length > 0) {
-                $('#delete_all').modal('show')
-                $('input[id="delete_all_id"]').val(selected);
-            }
-        });
-    });
-
-</script>
 @endsection

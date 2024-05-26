@@ -10,6 +10,7 @@ return [
     'delete_checkbox'=> 'Delete Selected',
     'Warning_class'=> 'Are Sure Of The Deleting Process ?',
     'submit' => 'submit',
+    'Search_By_Grade'=> 'Search By Grade Name',
     'Name_class'=>'Name class ar',
     'Name_class_en'=>'Name class en',
     'Name_Grade'=>'Name Grade',

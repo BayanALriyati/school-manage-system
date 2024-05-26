@@ -29,14 +29,6 @@
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>
 
 
-<script>
-    $(document).ready(function() {
-        $('#datatable').DataTable();
-    } );
-</script>
-
-
-
 @if (App::getLocale() == 'en')
     <script src="{{ URL::asset('assets/js/bootstrap-datatables/en/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap-datatables/en/dataTables.bootstrap4.min.js') }}"></script>
@@ -45,8 +37,65 @@
     <script src="{{ URL::asset('assets/js/bootstrap-datatables/ar/dataTables.bootstrap4.min.js') }}"></script>
 @endif
 
+{{-- <script>
+    $(document).ready(function() {
+        $('#datatable').DataTable();
+    } );
+</script> --}}
+<script>
+    // وظيفة لتحديد أو إلغاء تحديد جميع مربعات الاختيار
+    function CheckAll(className, elem) {
+        var checkboxes = document.getElementsByClassName(className);
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = elem.checked;
+        }
+    }
 
+    $(function() {
+        $("#btn_delete_all").click(function() {
+            var selected = [];
+            var selectedNames = [];
+            var selected = new Array();
+            $("#datatable input[type=checkbox]:checked").each(function() {
+                selected.push(this.value);
+            });
 
+            $("#datatable input[type=checkbox]:checked").each(function() {
+                var row = $(this).closest("tr");
+                var nameClass = row.find("td:nth-child(3)").text();
+                selected.push(this.value);
+                selectedNames.push(nameClass);
+            });
+
+            if (selected.length > 0) {
+                $('#delete_all').modal('show'); // اعرض موديل delete_all
+                $('input[id="delete_all_id"]').val(selected.join(', ')); // خذ منها ال value.selected(delete_all_id)
+                $('input[id="delete_all_Name_class"]').val(selectedNames.join(', ')); // خذ منها ال value.selected(delete_all_Name_class)
+            }
+        });
+    });
+</script>
+{{-- <script type="text/javascript">
+    $(function() {
+        $("#btn_delete_all").click(function() {
+            var selected = new Array();
+            $("#datatable input[type=checkbox]:checked").each(function() {
+                selected.push(this.value);
+            });
+
+            if (selected.length > 0) {
+                $('#delete_all').modal('show') //delete_all اعرض موديل
+                $('input[id="delete_all_id"]').val(selected); // خذ منها ال value.selected(delete_all_id)
+                // $('input[Name_class="delete_all_Name_class"]').val(selected); // خذ منها ال value.selected(delete_all_id)
+                $('input[id="delete_all_Name_class"]').val(selectedNames.join(', ')); // خذ منها ال value.selected(delete_all_Name_class)
+
+            }
+        });
+    });
+
+   
+
+</script> --}}
 <script>
     function CheckAll(className, elem) {
         var elements = document.getElementsByClassName(className);
@@ -63,3 +112,27 @@
         }
     }
 </script>
+{{-- <script>
+    // وظيفة لتحديد أو إلغاء تحديد جميع مربعات الاختيار
+    function CheckAll(className, elem) {
+        var checkboxes = document.getElementsByClassName(className);
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = elem.checked;
+        }
+        updateTextBox();
+    }
+
+    // وظيفة لتحديث حقل النص بناءً على الاختيارات
+    function updateTextBox() {
+        var selectedOptions = [];
+        document.querySelectorAll('.box1:checked').forEach(function(checkedBox) {
+            selectedOptions.push(checkedBox.value);
+        });
+        document.getElementById('delete_all_id').value = selectedOptions.join(', ');
+    }
+
+    // إضافة مستمعات للأحداث لكل مربع اختيار لتحديث حقل النص عند التغيير
+    document.querySelectorAll('.box1').forEach(function(checkbox) {
+        checkbox.addEventListener('change', updateTextBox);
+    });
+</script> --}}

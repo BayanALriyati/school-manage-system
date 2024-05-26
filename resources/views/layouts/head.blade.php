@@ -10,8 +10,23 @@
 @yield('css')
 <!--- Style css -->
 <link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<style>
+    /* أنماط مخصصة للقائمة المنسدلة */
+    .fancyselect {
+        background-color: #b8bdc0 !important; /* لون الخلفية */
+        color: #fff; /* لون النص */
+        border: 2px solid #007bff; /* لون الحدود */
+        border-radius: 5px; /* نصف القطر للزوايا */
+    }
+    .fancyselect:focus {
+        border-color: #0056b3; /* لون الحدود عند التركيز */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* ظل عند التركيز */
+    }
+</style>
 <!--- Style css -->
 @if (App::getLocale() == 'en')
     <link href="{{ URL::asset('assets/css/ltr.css') }}" rel="stylesheet">

@@ -1,0 +1,10 @@
+.fancyselect {
+    background-color: #f8f9fa  !important; /* لون الخلفية */
+    color: #495057; /* لون النص */
+    border: 2px solid #007bff; /* لون الحدود */
+    border-radius: 5px; /* نصف القطر للزوايا */
+}
+.fancyselect:focus {
+    border-color: #0056b3; /* لون الحدود عند التركيز */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* ظل عند التركيز */
+}
