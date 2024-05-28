@@ -147,8 +147,16 @@ return [
     */
 
     'attributes' => [
-        'List_Classes.*.Name_class_en' => 'Name class ar',
-            'List_Classes.*.Name' => 'Name class en',
+          'Name' => 'Arabic name',
+          'Name_en' => 'English name',
+          'Notes' => 'Notes in Arabic',
+          'Notes_en' => 'Notes in English',   
+          'Name_class_en'=> 'Class Name in English',
+          'List_Classes.*.Name_class_en' => 'Class Name in Arabic',
+          'List_Classes.*.Name' => 'Class Name in English',
+          'Name_Section_Ar'=>'Section Name in Arabic',
+          'Name_Section_En'=>'Section Name in English',
+          'Grade_id'=>'Grades',
     ],
 
 ];

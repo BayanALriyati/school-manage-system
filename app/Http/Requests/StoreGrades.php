@@ -23,12 +23,6 @@ class StoreGrades extends FormRequest
      */
     public function rules()
     {
-        // return [
-        //     'Name' => 'required',
-        //     'Notes' => 'required',
-        //     'Name_en'=> 'required',
-        //     'Notes_en'=> 'required'
-        // ];
         return [
             'Name' => 'required|unique:grades,name->ar,'.$this->id,
             'Name_en' => 'required|unique:grades,name->en,'.$this->id,

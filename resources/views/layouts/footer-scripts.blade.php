@@ -1,4 +1,3 @@
-
 <!-- jquery -->
 <script src="{{ URL::asset('assets/js/jquery-3.3.1.min.js') }}"></script>
 <!-- plugins-jquery -->
@@ -37,11 +36,11 @@
     <script src="{{ URL::asset('assets/js/bootstrap-datatables/ar/dataTables.bootstrap4.min.js') }}"></script>
 @endif
 
-{{-- <script>
+<script>
     $(document).ready(function() {
         $('#datatable').DataTable();
     } );
-</script> --}}
+</script>
 <script>
     // وظيفة لتحديد أو إلغاء تحديد جميع مربعات الاختيار
     function CheckAll(className, elem) {
@@ -112,27 +111,28 @@
         }
     }
 </script>
-{{-- <script>
-    // وظيفة لتحديد أو إلغاء تحديد جميع مربعات الاختيار
-    function CheckAll(className, elem) {
-        var checkboxes = document.getElementsByClassName(className);
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = elem.checked;
-        }
-        updateTextBox();
-    }
 
-    // وظيفة لتحديث حقل النص بناءً على الاختيارات
-    function updateTextBox() {
-        var selectedOptions = [];
-        document.querySelectorAll('.box1:checked').forEach(function(checkedBox) {
-            selectedOptions.push(checkedBox.value);
+<script>
+    $(document).ready(function () {
+        $('select[name="Grade_id"]').on('change', function () {
+            var Grade_id = $(this).val();
+            if (Grade_id) {
+                $.ajax({
+                    url: "{{ URL::to('classes') }}/" + Grade_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {  // اذا نجح
+                        $('select[name="Class_id"]').empty(); // روح ع select in section 
+                        $.each(data, function (key, value) {
+                            $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
+                        });                                                  
+                            console.log("data");
+                    },
+                });
+            } else {
+                console.log('AJAX load did not work');
+            }
         });
-        document.getElementById('delete_all_id').value = selectedOptions.join(', ');
-    }
-
-    // إضافة مستمعات للأحداث لكل مربع اختيار لتحديث حقل النص عند التغيير
-    document.querySelectorAll('.box1').forEach(function(checkbox) {
-        checkbox.addEventListener('change', updateTextBox);
     });
-</script> --}}
+
+</script>

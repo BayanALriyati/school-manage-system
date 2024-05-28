@@ -1,7 +1,8 @@
+
 <?php
 
 return [
-  
+
     'Dashboard'=>'الرئيسية',
     'Dashboard_page'=>'لوحة التحكم',
     'Main_title'=>'برنامج مورا سوفت لادارة المدارس',
@@ -12,6 +13,7 @@ return [
     'classes'=>'الصفوف',
     'List_classes'=>'قائمة الصفوف الدراسية',
     'sections'=>'الاقسام',
+    'List_sections'=>'قائمة الاقسام الدراسية',
     'students'=>'الطلاب',
     'Teachers'=>'المعلمين',
     'Parents'=>'اولياء الامور',
@@ -24,4 +26,6 @@ return [
     'Users'=>'المستخدمين',
     'Copyright' => 'جميع الحقوق محفوظة ',
     'Name_Programer' => 'سمير جمال مورا سوفت'
+
+
 ];

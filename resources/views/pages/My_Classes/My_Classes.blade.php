@@ -28,16 +28,30 @@
 <div class="col-xl-12 mb-30">
     <div class="card card-statistics h-100">
         <div class="card-body">
-
             @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+            {{-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            @endif
+            @endif --}}
     <div class="container text-center">
         <div class="row d-flex justify-content-between">
             <div class="d-flex justify-content-start">
@@ -67,11 +81,7 @@
                 </div>
             </div>
         </div>
-              <br><br>
               
-
-                <br><br>
-
             <div class="table-responsive">
                 <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                     style="text-align: center">
