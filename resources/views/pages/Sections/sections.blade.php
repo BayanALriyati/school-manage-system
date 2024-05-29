@@ -18,7 +18,7 @@
         <div class="col-md-12 mb-30">
             <div class="card card-statistics h-100">
                 <div class="card-body">
-                    <a class="button x-small" href="#" data-toggle="modal" data-target="#exampleModal">
+                    <a class="button x-small bg-success" href="#" data-toggle="modal" data-target="#exampleModal">
                         {{ trans('Sections_trans.add_section') }}</a>
                 </div>
 
@@ -67,20 +67,22 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 <?php $i = 0; ?>
+                                                                 {{-- In the Grade model there is a relationship Sections --}} 
                                                                 @foreach ($Grade->Sections as $list_Sections)
                                                                     <tr>
                                                                         <?php $i++; ?>
                                                                         <td>{{ $i }}</td>
                                                                         <td>{{ $list_Sections->Name_Section }}</td>
+                                                                        {{-- In the Sections model there is a relationship classrooom name (My_classs)  --}} 
                                                                         <td>{{ $list_Sections->My_classs->Name_class }}
                                                                         </td>
                                                                         <td>
                                                                             @if ($list_Sections->Status === 1)
                                                                                 <label
-                                                                                    class="badge badge-success">{{ trans('Sections_trans.Status_Section_AC') }}</label>
+                                                                                    class="badge badge-success large-text">{{ trans('Sections_trans.Status_Section_AC') }}</label>
                                                                             @else
                                                                                 <label
-                                                                                    class="badge badge-danger">{{ trans('Sections_trans.Status_Section_No') }}</label>
+                                                                                    class="badge badge-danger large-text">{{ trans('Sections_trans.Status_Section_No') }}</label>
                                                                             @endif
 
                                                                         </td>
@@ -178,7 +180,7 @@
                                                                                                     class="custom-select">
                                                                                                 <option
                                                                                                     value="{{ $list_Sections->My_classs->id }}">
-                                                                                                    {{ $list_Sections->My_classs->Name_Class }}
+                                                                                                    {{ $list_Sections->My_classs->Name_class }}
                                                                                                 </option>
                                                                                             </select>
                                                                                         </div>
@@ -249,7 +251,11 @@
                                                                                         method="post">
                                                                                         {{ method_field('Delete') }}
                                                                                         @csrf
-                                                                                        {{ trans('Sections_trans.Warning_Section') }}
+                                                                                        <h6>{{ trans('Sections_trans.Warning_Section') }}</h6>
+                                                                                        <input id="Name" type="text" name="Name"
+                                                                                                    class="form-control"
+                                                                                                    value="({{$list_Sections->getTranslation('Name_Section', 'ar')}}),({{$list_Sections->getTranslation('Name_Section', 'en')}}) "
+                                                                                                    required>
                                                                                         <input id="id" type="hidden"
                                                                                                name="id"
                                                                                                class="form-control"

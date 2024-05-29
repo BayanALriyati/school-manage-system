@@ -13,11 +13,7 @@ class Section extends Model
     protected $table = 'sections';
     public $timestamps = true;
 
-    // public function Grades()
-    // {
-    //     return $this->belongsTo('Grade', 'Grade_id');
-    // }
-
+    // علاقة بين الاقسام والصفوف لجلب اسم الصف في جدول الاقسام
     public function My_classs()
     {
         return $this->belongsTo('App\Models\Classroom', 'Class_id');

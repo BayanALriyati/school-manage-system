@@ -94,9 +94,33 @@ class SectionController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(StoreSections $request)
   {
-    
+
+    try {
+      $validated = $request->validated();
+      $Sections = Section::findOrFail($request->id);
+
+      $Sections->Name_Section = ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En];
+      $Sections->Grade_id = $request->Grade_id;
+      $Sections->Class_id = $request->Class_id;
+
+      if(isset($request->Status)) {
+        $Sections->Status = 1;
+      } else {
+        $Sections->Status = 2;
+      }
+
+      $Sections->save();
+      toastr()->success(trans('messages.Update'));
+
+      return redirect()->route('Sections.index');
+  }
+  catch
+  (\Exception $e) {
+      return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+  }
+
   }
 
   /**
@@ -105,9 +129,13 @@ class SectionController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(request $request)
   {
-    
+
+    Section::findOrFail($request->id)->delete();
+    toastr()->error(trans('messages.Delete'));
+    return redirect()->route('Sections.index');
+
   }
 
   public function getclasses($id)
