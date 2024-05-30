@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TypeBloodSeeder extends Seeder
+class MyParentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
