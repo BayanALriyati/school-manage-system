@@ -36,7 +36,7 @@ return [
     'Blood_Type_Mother_id' => 'Blood Type',
     'Religion_Mother_id' => 'Religion',
     'Address_Mother' => 'Address Father',
-
+    'Save_data'=> 'Are you sure to save data?',
     'Next' => 'Next',
     'Choose' => 'Choose',
     'Back' => 'Back',

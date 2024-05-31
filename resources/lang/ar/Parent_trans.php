@@ -33,7 +33,7 @@ return [
     'Passport_ID_Mother' => 'رقم جواز السفر',
     'Phone_Mother' => 'رقم الهاتف',
     'Address_Mother' => 'عنوان الام',
-
+    'Save_data'=> 'هل انت متاكد من حفظ البيانات ؟',
     'Next' => 'التالي',
     'Back' => 'السابق',
     'Finish' => 'تاكيد',

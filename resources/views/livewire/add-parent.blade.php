@@ -39,11 +39,11 @@
                 @endif
                 <div class="col-xs-12">
                     <div class="col-md-12">
-                        <h3 style="font-family: 'Cairo', sans-serif; text-align, center; margin-top: 70px;">هل انت متاكد من حفظ البيانات ؟</h3><br>
-                        <div class="btn-finish">
-                            <button class="btn btn-danger btn-sm nextBtn btn-lg pull-right" type="button"
-                            wire:click="back(2)">{{ trans('Parent_trans.Back') }}</button>
-                    <button class="btn btn-success btn-sm btn-lg pull-right" wire:click="submitForm"
+                        <h3 style="font-family: 'Cairo', sans-serif; text-align, center; margin-top: 70px;">{{ trans('Parent_trans.Save_data') }}</h3><br>
+                        <div class="col text-center">
+                            <button class="btn btn-danger btn-sm nextBtn btn-lg" type="button"
+                                  wire:click="back(2)">{{ trans('Parent_trans.Back') }}</button>
+                            <button class="btn btn-success btn-sm btn-lg" wire:click="submitForm"
                                   type="button">{{ trans('Parent_trans.Finish') }}</button>
                         </div>
                         
