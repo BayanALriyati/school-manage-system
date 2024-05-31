@@ -25,8 +25,8 @@ use Illuminate\Support\Facades\Route;
 
 	});
 	//refresh the website save the language
- //==============================Translate all pages============================
- Route::group(
+   //==============================Translate all pages============================
+    Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth']
@@ -56,6 +56,10 @@ use Illuminate\Support\Facades\Route;
         Route::get('/classes/{id}', 'SectionController@getclasses');
 
     });
+
+    //==============================parents============================
+
+    Route::view('add_parent','livewire.show_Form');
 
 
 
