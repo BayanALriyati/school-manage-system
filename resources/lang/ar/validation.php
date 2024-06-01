@@ -1,3 +1,4 @@
+
 <?php
 
 return [
@@ -39,7 +40,7 @@ return [
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => 'The :attribute must be a valid email address.',
+    'email' => ' :attribute يجب أن يكون عنوان بريد إلكتروني صالح',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'exists' => 'The selected :attribute is invalid.',
     'file' => 'The :attribute must be a file.',
@@ -79,7 +80,7 @@ return [
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => ' :attribute قد لا يكون أكبر من :max أرقام.',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
@@ -87,7 +88,7 @@ return [
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
+        'string' => ' :attribute لا بد أن يكون على الأقل :min أرقام.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'not_in' => 'The selected :attribute is invalid.',
@@ -95,8 +96,8 @@ return [
     'numeric' => 'The :attribute must be a number.',
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
-    'regex' => 'The :attribute format is invalid.',
-    'required' => 'حقل :attribute  مطلوب',
+    'regex' => ' :attribute التنسيق غير صالح.',
+    'required' => ' :attribute مطلوب.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -113,7 +114,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => ' :attribute موجود بالفعل',
+    'unique' => ' :attribute هذا الحقل موجود',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -147,18 +148,42 @@ return [
     */
 
     'attributes' => [      
-          'Name' => 'اسم المرحلة الدراسية باللغة العربية',
-          'Name_en' => 'اسم المرحلة الدراسية باللغة الانجيلزية',
-          'Notes' => 'ملاحظات باللغة العربية',
-          'Notes_en' => 'ملاحظات باللغة الانجيلزية',   
-          'Name_class_en'=> 'اسم الصف باللغة الانجيلزية',
-          'List_Classes.*.Name_class_en' => 'اسم الصف بالصف الإنجليزية',
-          'List_Classes.*.Name' => 'اسم الصف باللغة العربية',
-          'Name_Section_Ar'=>'اسم القسم باللغة العربية',
-          'Name_Section_En'=>'اسم القسم باللغة الإنجليزية',
-          'Grade_id'=>'المرحلة الدراسية',
-
+        'Name' => 'اسم المرحلة الدراسية باللغة العربية',
+        'Name_en' => 'اسم المرحلة الدراسية باللغة الانجيلزية',
+        'Notes' => 'ملاحظات باللغة العربية',
+        'Notes_en' => 'ملاحظات باللغة الانجيلزية',   
+        'Name_class_en'=> 'اسم الصف باللغة الانجيلزية',
+        'List_Classes.*.Name_class_en' => 'اسم الصف بالصف الإنجليزية',
+        'List_Classes.*.Name' => 'اسم الصف باللغة العربية',
+        'Name_Section_Ar'=>'اسم القسم باللغة العربية',
+        'Name_Section_En'=>'اسم القسم باللغة الإنجليزية',
+        'Grade_id'=>'المرحلة الدراسية',
+        'Email'=> "البريد الالكتروني",
+        'National_ID_Father' => 'رقم الهوية',
+        'Passport_ID_Father' => 'رقم جواز السفر',
+        'Phone_Father' => 'رقم الهاتف',
+        'National_ID_Mother' => 'رقم الهوية',
+        'Passport_ID_Mother' => 'رقم جواز السفر',
+        'Phone_Mother' => 'رقم الهاتف',
+        'Password' => 'كلمة المرور',
+        'Name_Father' => 'اسم الاب باللغة العربية',
+        'Name_Father_en' => 'اسم الاب  باللغة الانجليزية',
+        'Job_Father' => 'اسم الوظيفة باللغة العربية',
+        'Job_Father_en' => 'اسم الوظيفة باللغة الانجليزية',
+        'Name_Mother' => 'اسم الام باللغة العربية',
+        'Name_Mother_en' => 'اسم الام  باللغة الانجليزية',
+        'Job_Mother' => 'اسم الوظيفة باللغة العربية',
+        'Job_Mother_en' => 'اسم الوظيفة باللغة الانجليزية',
+        'Nationality_Father_id' => 'الجنسية',
+        'Blood_Type_Father_id' => 'فصلية الدم',
+        'Religion_Father_id' => 'الديانة',
+        'Address_Father' => 'عنوان الاب',
+        'Nationality_Mother_id' => 'الجنسية',
+        'Blood_Type_Mother_id' => 'فصلية الدم',
+        'Religion_Mother_id' => 'الديانة',
+        'Address_Mother' => 'عنوان الام',
 ],
 
-    
+
+
 ];
