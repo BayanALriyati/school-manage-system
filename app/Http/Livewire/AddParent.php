@@ -13,7 +13,7 @@ class AddParent extends Component
 {
     public $successMessage = '';
 
-    public $catchError;
+    public $catchError,$updateMode = false,$photos;
 
     public $currentStep = 1,
 
@@ -61,22 +61,22 @@ class AddParent extends Component
     //firstStepSubmit
     public function firstStepSubmit()
     {
-       $this->validate([
-            'Email' => 'required|unique:my__parents,Email,'.$this->id,
-            'Password' => 'required',
-            'Name_Father' => 'required',
-            'Name_Father_en' => 'required',
-            'Job_Father' => 'required',
-            'Job_Father_en' => 'required',
-            'National_ID_Father' => 'required|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
-            'Passport_ID_Father' => 'required|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
+    //    $this->validate([
+    //         'Email' => 'required|unique:my__parents,Email,'.$this->id,
+    //         'Password' => 'required',
+    //         'Name_Father' => 'required',
+    //         'Name_Father_en' => 'required',
+    //         'Job_Father' => 'required',
+    //         'Job_Father_en' => 'required',
+    //         'National_ID_Father' => 'required|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
+    //         'Passport_ID_Father' => 'required|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
           
-            'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'Nationality_Father_id' => 'required',
-            'Blood_Type_Father_id' => 'required',
-            'Religion_Father_id' => 'required',
-            'Address_Father' => 'required',
-        ]);
+    //         'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+    //         'Nationality_Father_id' => 'required',
+    //         'Blood_Type_Father_id' => 'required',
+    //         'Religion_Father_id' => 'required',
+    //         'Address_Father' => 'required',
+    //     ]);
 
         $this->currentStep = 2;
     }
@@ -85,19 +85,19 @@ class AddParent extends Component
     public function secondStepSubmit()
     {
 
-        $this->validate([
-            'Name_Mother' => 'required',
-            'Name_Mother_en' => 'required',
-            'National_ID_Mother' => 'required|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
-            'Passport_ID_Mother' => 'required|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
-            'Phone_Mother' => 'required',
-            'Job_Mother' => 'required',
-            'Job_Mother_en' => 'required',
-            'Nationality_Mother_id' => 'required',
-            'Blood_Type_Mother_id' => 'required',
-            'Religion_Mother_id' => 'required',
-            'Address_Mother' => 'required',
-        ]);
+        // $this->validate([
+        //     'Name_Mother' => 'required',
+        //     'Name_Mother_en' => 'required',
+        //     'National_ID_Mother' => 'required|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
+        //     'Passport_ID_Mother' => 'required|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
+        //     'Phone_Mother' => 'required',
+        //     'Job_Mother' => 'required',
+        //     'Job_Mother_en' => 'required',
+        //     'Nationality_Mother_id' => 'required',
+        //     'Blood_Type_Mother_id' => 'required',
+        //     'Religion_Mother_id' => 'required',
+        //     'Address_Mother' => 'required',
+        // ]);
 
         $this->currentStep = 3;
     }

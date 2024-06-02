@@ -39,22 +39,35 @@
 
     @include('livewire.Mother_Form')
 
-    <div class="row justify-content-md-center setup-content {{ $currentStep != 3 ? 'displayNone' : '' }}" id="step-3">
+    <div class="row setup-content {{ $currentStep != 3 ? 'displayNone' : '' }}" id="step-3">
         @if ($currentStep != 3)
             <div style="display: none" class="row setup-content" id="step-3">
                 @endif
                 <div class="col-xs-12">
-                    <div class="col-md-12">
-                        <h3 style="font-family: 'Cairo', sans-serif; text-align, center; margin-top: 70px;">{{ trans('Parent_trans.Save_data') }}</h3><br>
-                        <div class="col text-center">
-                            <button class="btn btn-danger btn-sm nextBtn btn-lg" type="button"
-                                  wire:click="back(2)">{{ trans('Parent_trans.Back') }}</button>
-                            <button class="btn btn-success btn-sm btn-lg" wire:click="submitForm"
-                                  type="button">{{ trans('Parent_trans.Finish') }}</button>
+                    <div class="col-md-12 form-submit"><br>
+                        <h1 class="Attachments">{{trans('Parent_trans.Attachments')}}</h1>
+                        <br>
+                        <div class="form-group">
+                            <input type="file" wire:model="photos" accept="image/*" multiple>
                         </div>
-                        
+                        <br>
+
+                        <input type="hidden" wire:model="Parent_id">
+
+                        <button class="btn btn-danger btn-sm nextBtn btn-lg pull-inline-start p-2 ml-1" type="button"
+                                wire:click="back(2)">{{ trans('Parent_trans.Back') }}</button>
+
+                        @if($updateMode)
+                            <button class="btn btn-success btn-sm nextBtn btn-lg pull-inline-start p-2 ml-1" wire:click="submitForm_edit"
+                                    type="button">{{trans('Parent_trans.Finish')}}
+                            </button>
+                        @else
+                            <button class="btn btn-success btn-sm btn-lg pull-inline-start p-2 ml-1" wire:click="submitForm"
+                                    type="button">{{ trans('Parent_trans.Finish') }}</button>
+                        @endif
+
                     </div>
                 </div>
             </div>
+
     </div>
-</div>

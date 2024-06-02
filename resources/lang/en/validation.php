@@ -147,6 +147,41 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'Name' => 'Name of the Grade in Arabic',
+        'Name_en' =>'Name of the Grade in English',
+        'Notes' => 'Notes in Arabic',
+        'Notes_en' =>'Notes in English',   
+        'Name_class_en'=> 'Name of the class in English',
+        'List_Classes.*.Name_class_en' => 'Name of the class in English',
+        'List_Classes.*.Name' => 'Name of the class in Arabic',
+        'Name_Section_Ar'=>'Name of the Section in Arabic',
+        'Name_Section_En'=>'Name of the Section in English',
+        'Grade_id'=>'Grade',
+        'National_ID_Father' => 'Identification Number',
+        'Passport_ID_Father' => 'Passport Number',
+        'Phone_Father' => 'Telephone Number',
+        'National_ID_Mother' => 'Identification Number',
+        'Passport_ID_Mother' => 'Passport Number',
+        'Phone_Mother' => 'Telephone Number',
+        'Password' => 'Password',
+        'Name_Father' => 'Father name in Arabic',
+        'Name_Father_en' => 'Father name in English',
+        'Job_Father' => 'Job name in Arabic',
+        'Job_Father_en' => 'Job name in English',
+        'Name_Mother' => 'Mother name in Arabic',
+        'Name_Mother_en' => 'Mother name in English',
+        'Job_Mother' => 'Job name in Arabic',
+        'Job_Mother_en' => 'Job name in English',
+        'Nationality_Father_id' => 'Nationality',
+        'Blood_Type_Father_id' => 'Blood Quarter',
+        'Religion_Father_id' => 'Religion',
+        'Address_Father' => 'Father address',
+        'Nationality_Mother_id' => 'Nationality',
+        'Blood_Type_Mother_id' => 'Blood Quarter',
+        'Religion_Mother_id' => 'Religion',
+        'Address_Mother' => 'Mother address',
+
+    ],
 
 ];

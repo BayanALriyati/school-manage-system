@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-    {{trans('main_trans.Add_Parent')}}
+    {{trans('main_trans.Parents')}}
 @stop
 @endsection
 @section('page-header')

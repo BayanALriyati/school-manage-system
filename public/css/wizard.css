@@ -46,3 +46,15 @@ body{
 .btn-finish{
     text-align: center !important;
 }
+
+.Attachments{
+    color: #28a745;
+}
+
+.form-submit{
+    margin: 30px 20px ;
+}
+
+.form-parent{
+    margin-top: 30px;
+}

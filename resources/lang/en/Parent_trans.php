@@ -8,7 +8,7 @@ return [
 
     'Step1' => 'Father information',
     'Step2' => 'Mother information',
-    'Step3' => 'Confirm information',
+    'Step3' => 'Attachments & information confirmation',
     'Email' => 'Email',
     'Password' => 'Password',
     //معلومات الاب
@@ -41,4 +41,7 @@ return [
     'Choose' => 'Choose',
     'Back' => 'Back',
     'Finish' => 'Finish',
+    'Attachments' => 'Attachments',
+    'Processes' => 'Processes',
+   
 ];

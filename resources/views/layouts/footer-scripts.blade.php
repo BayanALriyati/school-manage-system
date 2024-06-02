@@ -35,7 +35,25 @@
     <script src="{{ URL::asset('assets/js/bootstrap-datatables/ar/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap-datatables/ar/dataTables.bootstrap4.min.js') }}"></script>
 @endif
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.getElementById('photos');
+        var fileLabel = document.querySelector('.custom-file-label');
+        var chooseFilesText = "{{ trans('Parent_trans.choose_files') }}";
+        var filesSelectedText = {{ trans('Parent_trans.files_selected') }}";
 
+        fileLabel.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function() {
+            var fileName = fileInput.files.length > 0 
+                ? fileInput.files.length + ' ' + filesSelectedText 
+                : chooseFilesText;
+            fileLabel.textContent = fileName;
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable();
