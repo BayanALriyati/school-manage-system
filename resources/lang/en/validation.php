@@ -176,11 +176,13 @@ return [
         'Nationality_Father_id' => 'Nationality',
         'Blood_Type_Father_id' => 'Blood Quarter',
         'Religion_Father_id' => 'Religion',
-        'Address_Father' => 'Father address',
         'Nationality_Mother_id' => 'Nationality',
         'Blood_Type_Mother_id' => 'Blood Quarter',
         'Religion_Mother_id' => 'Religion',
-        'Address_Mother' => 'Mother address',
+        'Address_Father' => 'Father address in Arabic',
+        'Address_Father_en'=>'Father address in English',
+        'Address_Mother' => 'Mother address in Arabic',
+        'Address_Mother_en'=>'Mother address in English', 
 
     ],
 

@@ -22,7 +22,8 @@ return [
     'Nationality_Father_id' => 'الجنسية',
     'Blood_Type_Father_id' => 'فصلية الدم',
     'Religion_Father_id' => 'الديانة',
-    'Address_Father' => 'عنوان الاب',
+    'Address_Father' => 'عنوان الاب باللغة العربية',
+    'Address_Father_en'=>'عنوان الاب باللغة الانجيلزية' ,
 
      //معلومات الام
     'Name_Mother' => 'اسم الام باللغة العربية',
@@ -35,7 +36,8 @@ return [
     'Nationality_Mother_id' => 'الجنسية',
     'Blood_Type_Mother_id' => 'فصلية الدم',
     'Religion_Mother_id' => 'الديانة',
-    'Address_Mother' => 'عنوان الام',
+    'Address_Mother' => 'عنوان الام باللغة العربية',
+    'Address_Mother_en'=>'عنوان الام باللغة الانجيلزية' ,
     'Save_data'=> 'هل انت متاكد من حفظ البيانات ؟',
     'Next' => 'التالي',
     'Back' => 'السابق',

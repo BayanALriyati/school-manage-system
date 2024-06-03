@@ -6,11 +6,14 @@ use App\Models\My_Parent;
 use App\Models\Nationalitie;
 use App\Models\Religion;
 use App\Models\Type_Blood;
+use App\Models\ParentAttachment;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class AddParent extends Component
 {
+    use WithFileUploads;
     public $successMessage = '';
 
     public $catchError,$updateMode = false,$photos;
@@ -23,14 +26,14 @@ class AddParent extends Component
         $National_ID_Father, $Passport_ID_Father,
         $Phone_Father, $Job_Father, $Job_Father_en,
         $Nationality_Father_id, $Blood_Type_Father_id,
-        $Address_Father, $Religion_Father_id,
+        $Address_Father, $Address_Father_en, $Religion_Father_id,
 
         // Mother_INPUTS
         $Name_Mother, $Name_Mother_en,
         $National_ID_Mother, $Passport_ID_Mother,
         $Phone_Mother, $Job_Mother, $Job_Mother_en,
         $Nationality_Mother_id, $Blood_Type_Mother_id,
-        $Address_Mother, $Religion_Mother_id;
+        $Address_Mother, $Address_Mother_en, $Religion_Mother_id;
 
 
     public function updated($propertyName)
@@ -61,22 +64,24 @@ class AddParent extends Component
     //firstStepSubmit
     public function firstStepSubmit()
     {
-    //    $this->validate([
-    //         'Email' => 'required|unique:my__parents,Email,'.$this->id,
-    //         'Password' => 'required',
-    //         'Name_Father' => 'required',
-    //         'Name_Father_en' => 'required',
-    //         'Job_Father' => 'required',
-    //         'Job_Father_en' => 'required',
-    //         'National_ID_Father' => 'required|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
-    //         'Passport_ID_Father' => 'required|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
+       $this->validate([
+            'Email' => 'required|unique:my__parents,Email,'.$this->id,
+            'Password' => 'required',
+            'Name_Father' => 'required',
+            'Name_Father_en' => 'required',
+            'Job_Father' => 'required',
+            'Job_Father_en' => 'required',
+            'National_ID_Father' => 'required|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
+            'Passport_ID_Father' => 'required|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
           
-    //         'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-    //         'Nationality_Father_id' => 'required',
-    //         'Blood_Type_Father_id' => 'required',
-    //         'Religion_Father_id' => 'required',
-    //         'Address_Father' => 'required',
-    //     ]);
+            'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'Nationality_Father_id' => 'required',
+            'Blood_Type_Father_id' => 'required',
+            'Religion_Father_id' => 'required',
+            'Address_Father' => 'required',
+            'Address_Father_en' => 'required',
+
+        ]);
 
         $this->currentStep = 2;
     }
@@ -85,19 +90,20 @@ class AddParent extends Component
     public function secondStepSubmit()
     {
 
-        // $this->validate([
-        //     'Name_Mother' => 'required',
-        //     'Name_Mother_en' => 'required',
-        //     'National_ID_Mother' => 'required|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
-        //     'Passport_ID_Mother' => 'required|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
-        //     'Phone_Mother' => 'required',
-        //     'Job_Mother' => 'required',
-        //     'Job_Mother_en' => 'required',
-        //     'Nationality_Mother_id' => 'required',
-        //     'Blood_Type_Mother_id' => 'required',
-        //     'Religion_Mother_id' => 'required',
-        //     'Address_Mother' => 'required',
-        // ]);
+        $this->validate([
+            'Name_Mother' => 'required',
+            'Name_Mother_en' => 'required',
+            'National_ID_Mother' => 'required|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
+            'Passport_ID_Mother' => 'required|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
+            'Phone_Mother' => 'required',
+            'Job_Mother' => 'required',
+            'Job_Mother_en' => 'required',
+            'Nationality_Mother_id' => 'required',
+            'Blood_Type_Mother_id' => 'required',
+            'Religion_Mother_id' => 'required',
+            'Address_Mother' => 'required',
+            'Address_Mother_en' => 'required',
+        ]);
 
         $this->currentStep = 3;
     }
@@ -118,7 +124,7 @@ class AddParent extends Component
             $My_Parent->Nationality_Father_id = $this->Nationality_Father_id;
             $My_Parent->Blood_Type_Father_id = $this->Blood_Type_Father_id;
             $My_Parent->Religion_Father_id = $this->Religion_Father_id;
-            $My_Parent->Address_Father = $this->Address_Father;
+            $My_Parent->Address_Father = ['en' => $this->Address_Father_en, 'ar' => $this->Address_Father];
 
             // Mother_INPUTS
             $My_Parent->Name_Mother = ['en' => $this->Name_Mother_en, 'ar' => $this->Name_Mother];
@@ -130,9 +136,20 @@ class AddParent extends Component
             $My_Parent->Nationality_Mother_id = $this->Nationality_Mother_id;
             $My_Parent->Blood_Type_Mother_id = $this->Blood_Type_Mother_id;
             $My_Parent->Religion_Mother_id = $this->Religion_Mother_id;
-            $My_Parent->Address_Mother = $this->Address_Mother;
+            $My_Parent->Address_Mother = ['en' => $this->Address_Mother_en, 'ar' => $this->Address_Mother];
 
             $My_Parent->save();
+            if (!empty($this->photos)){
+                foreach ($this->photos as $photo) {
+                    //  هات الاسم التابع لها -2 National_ID_Fatherافتح ملف باسم -1
+                    $photo->storeAs($this->National_ID_Father, $photo->getClientOriginalName(), $disk = 'parent_attachments');
+                    ParentAttachment::create([
+                        'file_name' => $photo->getClientOriginalName(),
+                        // هات اخر id بعد عمليه save
+                        'parent_id' => My_Parent::latest()->first()->id,
+                    ]);
+                }
+            }
             $this->successMessage = trans('messages.success');
 
             $this->clearForm();

@@ -5,7 +5,7 @@
             <div class="col-md-12 form-parent">
                 <br>
 
-                <div class="form-row">
+                <div class="form-row mb-4">
                     <div class="col">
                         <label for="title">{{trans('Parent_trans.Name_Mother')}}</label>
                         <input type="text" wire:model="Name_Mother" class="form-control">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row mb-4">
                     <div class="col-md-3">
                         <label for="title">{{trans('Parent_trans.Job_Mother')}}</label>
                         <input type="text" wire:model="Job_Mother" class="form-control">
@@ -37,7 +37,24 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlTextarea1">{{trans('Parent_trans.Address_Mother')}}</label>
+                         <input type="text" wire:model="Address_Mother" class="form-control">
+                         @error('Address_Mother')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlTextarea1">{{trans('Parent_trans.Address_Mother_en')}}</label>
+                         <input type="text" wire:model="Address_Mother_en" class="form-control">
+                         @error('Address_Mother_en')
+                         <div class="alert alert-danger">{{ $message }}</div>
+                         @enderror
+                    </div>
 
+                </div>
+
+                <div class="form-row mb-4">
                     <div class="col">
                         <label for="title">{{trans('Parent_trans.National_ID_Mother')}}</label>
                         <input type="text" wire:model="National_ID_Mother" class="form-control">
@@ -60,11 +77,9 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
                 </div>
 
-
-                <div class="form-row">
+                <div class="form-row mb-4">
                     <div class="form-group col-md-6">
                         <label for="inputCity">{{trans('Parent_trans.Nationality_Father_id')}}</label>
                         <select class="custom-select my-1 mr-sm-2" wire:model="Nationality_Mother_id">
@@ -103,14 +118,14 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="exampleFormControlTextarea1">{{trans('Parent_trans.Address_Mother')}}</label>
                     <textarea class="form-control" wire:model="Address_Mother" id="exampleFormControlTextarea1"
                               rows="4"></textarea>
                     @error('Address_Mother')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
 
                 <button class="btn btn-danger btn-sm nextBtn btn-lg pull-right p-2 ml-1" type="button" wire:click="back(1)">
                     {{trans('Parent_trans.Back')}}

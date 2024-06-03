@@ -177,11 +177,15 @@ return [
         'Nationality_Father_id' => 'الجنسية',
         'Blood_Type_Father_id' => 'فصلية الدم',
         'Religion_Father_id' => 'الديانة',
-        'Address_Father' => 'عنوان الاب',
+        'Address_Father' => 'عنوان الاب باللغة العربية',
+        'Address_Father_en'=>'عنوان الاب باللغة الانجيلزية' ,
+        'Address_Mother' => 'عنوان الام باللغة العربية',
+        'Address_Mother_en'=>'عنوان الام باللغة الانجيلزية' ,   
         'Nationality_Mother_id' => 'الجنسية',
         'Blood_Type_Mother_id' => 'فصلية الدم',
         'Religion_Mother_id' => 'الديانة',
-        'Address_Mother' => 'عنوان الام',
+      
+
 ],
 
 
