@@ -4,13 +4,22 @@ return [
 
     'Parents'=>'Parents',
     'Add_Parent'=>'Add Parent',
+    'edit_parent' => 'Edit Parent',
+    'delete_parent' => 'Delete Parent',
     'List_Parents'=>'List Parents',
-
     'Step1' => 'Father information',
     'Step2' => 'Mother information',
     'Step3' => 'Attachments & information confirmation',
     'Email' => 'Email',
     'Password' => 'Password',
+    'Name'=>'Name',
+    'Father'=>'Father',
+    'Mother'=>'Mother',
+    'Job'=>'Job',
+    'Address'=>'Address',
+    'ID_National'=>'ID National',
+    'Passport'=>'Passport',
+    'Phone'=>'Phone',
     //معلومات الاب
     'Name_Father' => 'Father Name Arabic',
     'Name_Father_en' => 'Father Name English',

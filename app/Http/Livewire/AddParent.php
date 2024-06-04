@@ -16,7 +16,7 @@ class AddParent extends Component
     use WithFileUploads;
     public $successMessage = '';
 
-    public $catchError,$updateMode = false,$photos;
+    public $catchError,$updateMode = false,$photos,$show_table=true;
 
     public $currentStep = 1,
 
@@ -57,6 +57,7 @@ class AddParent extends Component
             'Nationalities' => Nationalitie::all(),
             'Type_Bloods' => Type_Blood::all(),
             'Religions' => Religion::all(),
+            'my_parents' => My_Parent::all(),
         ]);
 
     }
@@ -151,9 +152,12 @@ class AddParent extends Component
                 }
             }
             $this->successMessage = trans('messages.success');
+            return redirect()->to('/add_parent');
 
-            $this->clearForm();
-            $this->currentStep = 1;
+            // $this->show_table = true;
+
+            // $this->clearForm();
+            // $this->currentStep = 1;
         }
 
         catch (\Exception $e) {
@@ -164,38 +168,141 @@ class AddParent extends Component
 
     }
 
-
     //clearForm
-    public function clearForm()
-    {
-        $this->Email = '';
-        $this->Password = '';
-        $this->Name_Father = '';
-        $this->Job_Father = '';
-        $this->Job_Father_en = '';
-        $this->Name_Father_en = '';
-        $this->National_ID_Father ='';
-        $this->Passport_ID_Father = '';
-        $this->Phone_Father = '';
-        $this->Nationality_Father_id = '';
-        $this->Blood_Type_Father_id = '';
-        $this->Address_Father ='';
-        $this->Religion_Father_id ='';
+    // public function clearForm()
+    // {
+    //     $this->Email = '';
+    //     $this->Password = '';
+    //     $this->Name_Father = '';
+    //     $this->Job_Father = '';
+    //     $this->Job_Father_en = '';
+    //     $this->Name_Father_en = '';
+    //     $this->National_ID_Father ='';
+    //     $this->Passport_ID_Father = '';
+    //     $this->Phone_Father = '';
+    //     $this->Nationality_Father_id = '';
+    //     $this->Blood_Type_Father_id = '';
+    //     $this->Address_Father ='';
+    //     $this->Religion_Father_id ='';
 
-        $this->Name_Mother = '';
-        $this->Job_Mother = '';
-        $this->Job_Mother_en = '';
-        $this->Name_Mother_en = '';
-        $this->National_ID_Mother ='';
-        $this->Passport_ID_Mother = '';
-        $this->Phone_Mother = '';
-        $this->Nationality_Mother_id = '';
-        $this->Blood_Type_Mother_id = '';
-        $this->Address_Mother ='';
-        $this->Religion_Mother_id ='';
+    //     $this->Name_Mother = '';
+    //     $this->Job_Mother = '';
+    //     $this->Job_Mother_en = '';
+    //     $this->Name_Mother_en = '';
+    //     $this->National_ID_Mother ='';
+    //     $this->Passport_ID_Mother = '';
+    //     $this->Phone_Mother = '';
+    //     $this->Nationality_Mother_id = '';
+    //     $this->Blood_Type_Mother_id = '';
+    //     $this->Address_Mother ='';
+    //     $this->Religion_Mother_id ='';
+
+    // }
+
+        public function showformadd(){
+        $this->show_table = false;
+    }
+
+    public function edit($id)
+    {
+        $this->show_table = false;
+        $this->updateMode = true;
+        $My_Parent = My_Parent::where('id',$id)->first();
+        $this->Parent_id = $id;
+        $this->Email = $My_Parent->Email;
+        $this->Password = $My_Parent->Password;
+        $this->Name_Father = $My_Parent->getTranslation('Name_Father', 'ar');
+        $this->Name_Father_en = $My_Parent->getTranslation('Name_Father', 'en');
+        $this->Job_Father = $My_Parent->getTranslation('Job_Father', 'ar');;
+        $this->Job_Father_en = $My_Parent->getTranslation('Job_Father', 'en');
+        $this->National_ID_Father =$My_Parent->National_ID_Father;
+        $this->Passport_ID_Father = $My_Parent->Passport_ID_Father;
+        $this->Phone_Father = $My_Parent->Phone_Father;
+        $this->Nationality_Father_id = $My_Parent->Nationality_Father_id;
+        $this->Blood_Type_Father_id = $My_Parent->Blood_Type_Father_id;
+        $this->Address_Father = $My_Parent->getTranslation('Address_Father', 'ar');
+        $this->Address_Father_en = $My_Parent->getTranslation('Address_Father', 'en');
+        $this->Religion_Father_id =$My_Parent->Religion_Father_id;
+
+        $this->Name_Mother = $My_Parent->getTranslation('Name_Mother', 'ar');
+        $this->Name_Mother_en = $My_Parent->getTranslation('Name_Father', 'en');
+        $this->Job_Mother = $My_Parent->getTranslation('Job_Mother', 'ar');;
+        $this->Job_Mother_en = $My_Parent->getTranslation('Job_Mother', 'en');
+        $this->National_ID_Mother =$My_Parent->National_ID_Mother;
+        $this->Passport_ID_Mother = $My_Parent->Passport_ID_Mother;
+        $this->Phone_Mother = $My_Parent->Phone_Mother;
+        $this->Nationality_Mother_id = $My_Parent->Nationality_Mother_id;
+        $this->Blood_Type_Mother_id = $My_Parent->Blood_Type_Mother_id;
+        $this->Address_Mother = $My_Parent->getTranslation('Address_Mother', 'ar');
+        $this->Address_Mother_en = $My_Parent->getTranslation('Address_Mother', 'en');
+        $this->Religion_Mother_id =$My_Parent->Religion_Mother_id;
+    }
+
+    
+    //firstStepSubmit
+    public function firstStepSubmit_edit()
+    {
+        $this->updateMode = true;
+        $this->currentStep = 2;
 
     }
 
+    //secondStepSubmit_edit
+    public function secondStepSubmit_edit()
+    {
+        $this->updateMode = true;
+        $this->currentStep = 3;
+
+    }
+
+    public function submitForm_edit(){
+
+        // if ($this->Parent_id){
+        //     $parent = My_Parent::find($this->Parent_id);
+        //     $parent->update([
+        //         'Passport_ID_Father' => $this->Passport_ID_Father,
+        //         'National_ID_Father' => $this->National_ID_Father,
+        //     ]);
+
+        // }
+        if ($this->Parent_id){
+            $parent = My_Parent::findOrFail($this->Parent_id);
+            $parent->update([
+                'Email' => $this->Email,
+                'Password' => Hash::make($this->Password),
+                'Name_Father' => ['en' => $this->Name_Father_en, 'ar' => $this->Name_Father],
+                'Passport_ID_Father' => $this->Passport_ID_Father,
+                'National_ID_Father' => $this->National_ID_Father,
+                'Phone_Father' => $this->Phone_Father,
+                'Job_Father' => ['en' => $this->Job_Father_en, 'ar' => $this->Job_Father],
+                'Nationality_Father_id' => $this->Nationality_Father_id,
+                'Blood_Type_Father_id' => $this->Blood_Type_Father_id,
+                'Religion_Father_id' => $this->Religion_Father_id,
+                'Address_Father' => ['en' => $this->Address_Father_en, 'ar' => $this->Address_Father],
+    
+                // Mother_INPUTS
+                'Name_Mother' => ['en' => $this->Name_Mother_en, 'ar' => $this->Name_Mother],
+                'National_ID_Mother' => $this->National_ID_Mother,
+                'Passport_ID_Mother' => $this->Passport_ID_Mother,
+                'Phone_Mother' => $this->Phone_Mother,
+                'Job_Mother' => ['en' => $this->Job_Mother_en, 'ar' => $this->Job_Mother],
+                'Nationality_Mother_id' => $this->Nationality_Mother_id,
+                'Blood_Type_Mother_id' => $this->Blood_Type_Mother_id,
+                'Religion_Mother_id' => $this->Religion_Mother_id,
+                'Address_Mother' => ['en' => $this->Address_Mother_en, 'ar' => $this->Address_Mother]
+            ]);
+
+        }
+        
+        // $this->successMessage = trans('messages.Update');
+        return redirect()->to('/add_parent');
+    }
+
+    public function delete($id){
+        My_Parent::findOrFail($id)->delete();
+        // $this->successMessage = trans('messages.Delete');
+        return redirect()->to('/add_parent');
+    }
 
     //back
     public function back($step)

@@ -40,18 +40,7 @@
                 </button>
             </div>
         @endif
-            {{-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif --}}
+        
     <div class="container text-center">
         <div class="row d-flex justify-content-between">
             <div class="d-flex justify-content-start">
@@ -86,7 +75,7 @@
                 <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
                     style="text-align: center">
                     <thead>
-                        <tr>
+                        <tr class="table-success">
                             <th><input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)" /></th>
                             <th>#</th>
                             <th>{{ trans('My_Classes_trans.Name_class') }}</th>

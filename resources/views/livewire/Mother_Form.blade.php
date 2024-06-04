@@ -117,22 +117,24 @@
                         @enderror
                     </div>
                 </div>
-
-                {{-- <div class="form-group">
-                    <label for="exampleFormControlTextarea1">{{trans('Parent_trans.Address_Mother')}}</label>
-                    <textarea class="form-control" wire:model="Address_Mother" id="exampleFormControlTextarea1"
-                              rows="4"></textarea>
-                    @error('Address_Mother')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div> --}}
-
                 <button class="btn btn-danger btn-sm nextBtn btn-lg pull-right p-2 ml-1" type="button" wire:click="back(1)">
                     {{trans('Parent_trans.Back')}}
                 </button>
 
-                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right p-2 ml-1" type="button"
+            @if($updateMode)
+                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right  p-2 ml-1" wire:click="secondStepSubmit_edit"
+                        type="button">{{trans('Parent_trans.Next')}}
+                </button>
+            @else
+                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right  p-2 ml-1" type="button"
                         wire:click="secondStepSubmit">{{trans('Parent_trans.Next')}}</button>
+            @endif
+                {{-- <button class="btn btn-danger btn-sm nextBtn btn-lg pull-right p-2 ml-1" type="button" wire:click="back(1)">
+                    {{trans('Parent_trans.Back')}}
+                </button>
+
+                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right p-2 ml-1" type="button"
+                        wire:click="secondStepSubmit">{{trans('Parent_trans.Next')}}</button> --}}
 
             </div>
         </div>

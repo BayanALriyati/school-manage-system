@@ -1,5 +1,4 @@
-
-@if($currentStep != 1)
+ @if($currentStep != 1)
     <div style="display: none" class="row setup-content" id="step-1">
         @endif
         <div class="col-xs-12">
@@ -156,18 +155,19 @@
                         @enderror
                     </div>
                 </div>
-
-                {{-- <div class="form-group">
-                    <label for="exampleFormControlTextarea1">{{trans('Parent_trans.Address_Father')}}</label>
-                    <textarea class="form-control" wire:model="Address_Father" id="exampleFormControlTextarea1" rows="4"></textarea>
-                    @error('Address_Father')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div> --}}
-
-                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" wire:click="firstStepSubmit"
+                
+            @if($updateMode)
+                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right p-2 ml-1" wire:click="firstStepSubmit_edit"
                         type="button">{{trans('Parent_trans.Next')}}
                 </button>
+            @else
+                <button class="btn btn-success btn-sm nextBtn btn-lg pull-right p-2 ml-1" wire:click="firstStepSubmit"
+                        type="button">{{trans('Parent_trans.Next')}}
+                </button>
+            @endif
+                {{-- <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" wire:click="firstStepSubmit"
+                        type="button">{{trans('Parent_trans.Next')}}
+                </button> --}}
 
             </div>
         </div>
