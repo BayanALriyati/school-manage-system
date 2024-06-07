@@ -1,3 +1,4 @@
+
 <div class="container text-center">
     <div class="row justify-content-md-center">
       <div class="col col-lg-2">
@@ -6,6 +7,12 @@
     </div>
   </div>
 <br>
+@if (!empty($successMessage))
+<div class="alert alert-success" id="success-alert">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    {{ $successMessage }}
+</div>
+@endif
 <div class="table-responsive">
     <table id="datatable" class="table  table-hover table-sm table-bordered p-0" data-page-length="50"
            style="text-align: center">

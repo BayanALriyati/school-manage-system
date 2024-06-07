@@ -16,7 +16,7 @@ class AddParent extends Component
     use WithFileUploads;
     public $successMessage = '';
 
-    public $catchError,$updateMode = false,$photos,$show_table=true;
+    public $catchError,$updateMode = false,$photos,$show_table=true,$Parent_id;
 
     public $currentStep = 1,
 
@@ -151,11 +151,10 @@ class AddParent extends Component
                     ]);
                 }
             }
-            $this->successMessage = trans('messages.success');
+            toastr()->success(trans('messages.success'));
             return redirect()->to('/add_parent');
-
+            // $this->successMessage = trans('messages.success');
             // $this->show_table = true;
-
             // $this->clearForm();
             // $this->currentStep = 1;
         }
@@ -199,7 +198,7 @@ class AddParent extends Component
 
     // }
 
-        public function showformadd(){
+    public function showformadd(){
         $this->show_table = false;
     }
 
@@ -242,6 +241,22 @@ class AddParent extends Component
     //firstStepSubmit
     public function firstStepSubmit_edit()
     {
+        $this->validate([
+            'Email' => 'required|email|unique:my__parents,Email,' . $this->Parent_id,
+            'Password' => 'required',
+            'Name_Father' => 'required',
+            'Name_Father_en' => 'required',
+            'Job_Father' => 'required',
+            'Job_Father_en' => 'required',
+            'National_ID_Father' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
+            'Passport_ID_Father' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
+            'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'Nationality_Father_id' => 'required',
+            'Blood_Type_Father_id' => 'required',
+            'Religion_Father_id' => 'required',
+            'Address_Father' => 'required',
+            'Address_Father_en' => 'required',
+        ]);
         $this->updateMode = true;
         $this->currentStep = 2;
 
@@ -250,21 +265,28 @@ class AddParent extends Component
     //secondStepSubmit_edit
     public function secondStepSubmit_edit()
     {
+        $this->validate([
+        'Name_Mother' => 'required',
+        'Name_Mother_en' => 'required',
+        'Job_Mother' => 'required',
+        // 'Job_Mother_en' => 'required',
+        // 'National_ID_Mother' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
+        // 'Passport_ID_Mother' => 'required|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
+        'National_ID_Mother' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
+            'Passport_ID_Mother' => 'required|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
+        'Phone_Mother' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+        'Nationality_Mother_id' => 'required',
+        'Blood_Type_Mother_id' => 'required',
+        'Religion_Mother_id' => 'required',
+        'Address_Mother' => 'required',
+        'Address_Mother_en' => 'required',
+        ]);
         $this->updateMode = true;
         $this->currentStep = 3;
 
     }
 
     public function submitForm_edit(){
-
-        // if ($this->Parent_id){
-        //     $parent = My_Parent::find($this->Parent_id);
-        //     $parent->update([
-        //         'Passport_ID_Father' => $this->Passport_ID_Father,
-        //         'National_ID_Father' => $this->National_ID_Father,
-        //     ]);
-
-        // }
         if ($this->Parent_id){
             $parent = My_Parent::findOrFail($this->Parent_id);
             $parent->update([
@@ -293,16 +315,17 @@ class AddParent extends Component
             ]);
 
         }
-        
-        // $this->successMessage = trans('messages.Update');
+        toastr()->success(trans('messages.Update'));
         return redirect()->to('/add_parent');
+        // $this->successMessage = trans('messages.Update');
+
     }
 
-    public function delete($id){
-        My_Parent::findOrFail($id)->delete();
-        // $this->successMessage = trans('messages.Delete');
-        return redirect()->to('/add_parent');
-    }
+    // public function delete($id){
+    //     My_Parent::findOrFail($id)->delete();
+    //     $this->successMessage = trans('messages.Delete');
+    //     return redirect()->to('/add_parent');
+    // }
 
     //back
     public function back($step)

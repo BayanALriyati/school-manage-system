@@ -16,8 +16,8 @@
 @if($show_table)
     @include('livewire.Parent_Table')
   @else
-
-    <div class="stepwizard">
+     <div class="stepwizard">
+       
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">
                 <a href="#step-1" type="button"
