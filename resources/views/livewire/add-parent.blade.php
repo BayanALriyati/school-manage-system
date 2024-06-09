@@ -52,6 +52,25 @@
                     <div class="col-md-12 form-submit"><br>
                         <h1 class="Attachments">{{trans('Parent_trans.Attachments')}}</h1>
                         <br>
+                        <br>
+            @if ($updateMode && $photos)
+                <div>
+                    <h3>Existing Photos:</h3>
+                    <div class="row">
+                        @foreach ($photos as $photo)
+                            <div class="col-md-3">
+                                <div class="card mb-3">
+                                    <img class="card-img-top" src="{{ $photo['url'] }}" alt="{{ $photo['file_name'] }}">
+                                    <div class="card-body">
+                                        <p class="card-text">{{ $photo['file_name'] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <br>
+            @endif
                         <div class="form-group">
                             <input type="file" wire:model="photos" accept="image/*" multiple>
                         </div>

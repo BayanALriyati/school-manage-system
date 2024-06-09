@@ -10,6 +10,8 @@ use App\Models\ParentAttachment;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class AddParent extends Component
 {
@@ -74,7 +76,6 @@ class AddParent extends Component
             'Job_Father_en' => 'required',
             'National_ID_Father' => 'required|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
             'Passport_ID_Father' => 'required|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
-          
             'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'Nationality_Father_id' => 'required',
             'Blood_Type_Father_id' => 'required',
@@ -151,6 +152,7 @@ class AddParent extends Component
                     ]);
                 }
             }
+            
             toastr()->success(trans('messages.success'));
             return redirect()->to('/add_parent');
             // $this->successMessage = trans('messages.success');
@@ -235,28 +237,54 @@ class AddParent extends Component
         $this->Address_Mother = $My_Parent->getTranslation('Address_Mother', 'ar');
         $this->Address_Mother_en = $My_Parent->getTranslation('Address_Mother', 'en');
         $this->Religion_Mother_id =$My_Parent->Religion_Mother_id;
+        $attachments = ParentAttachment::where('parent_id', $this->Parent_id)->get();
+        foreach ($attachments as $attachment) {
+            $this->photos[] = [
+                'file_name' => $attachment->file_name,
+                'url' => Storage::disk('parent_attachments')->url($this->National_ID_Father . '/' . $attachment->file_name),
+                // 'url' => Storage::disk('parent_attachments')->url($attachment->file_name),
+            ];
+            
+        }
+        dd($this->photos); 
     }
 
     
     //firstStepSubmit
     public function firstStepSubmit_edit()
     {
-        $this->validate([
-            'Email' => 'required|email|unique:my__parents,Email,' . $this->Parent_id,
-            'Password' => 'required',
-            'Name_Father' => 'required',
-            'Name_Father_en' => 'required',
-            'Job_Father' => 'required',
-            'Job_Father_en' => 'required',
-            'National_ID_Father' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,National_ID_Father|unique:my__parents,National_ID_Mother,' . $this->id,
-            'Passport_ID_Father' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,Passport_ID_Father|unique:my__parents,Passport_ID_Mother,' . $this->id,
-            'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'Nationality_Father_id' => 'required',
-            'Blood_Type_Father_id' => 'required',
-            'Religion_Father_id' => 'required',
-            'Address_Father' => 'required',
-            'Address_Father_en' => 'required',
-        ]);
+        // $this->validate([
+        //     'National_ID_Father' => [
+        //      'required',
+        //      'string',
+        //      'min:10',
+        //      'max:10',
+        //      Rule::unique('my__parents', 'National_ID_Father')->ignore($this->Parent_id),
+        //      Rule::unique('my__parents', 'National_ID_Mother')->ignore($this->Parent_id),
+
+        //  ],
+        //  'Passport_ID_Father' => [
+        //      'required',
+        //      'string',
+        //      'min:10',
+        //      'max:10',
+        //      Rule::unique('my__parents', 'Passport_ID_Father')->ignore($this->Parent_id),
+        //      Rule::unique('my__parents', 'Passport_ID_Mother')->ignore($this->Parent_id),
+
+        //  ],
+        //     'Email' => 'required|email|unique:my__parents,Email,' . $this->Parent_id,
+        //     'Password' => 'required',
+        //     'Name_Father' => 'required',
+        //     'Name_Father_en' => 'required',
+        //     'Job_Father' => 'required',
+        //     'Job_Father_en' => 'required',
+        //     'Phone_Father' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+        //     'Nationality_Father_id' => 'required',
+        //     'Blood_Type_Father_id' => 'required',
+        //     'Religion_Father_id' => 'required',
+        //     'Address_Father' => 'required',
+        //     'Address_Father_en' => 'required',
+        // ]);
         $this->updateMode = true;
         $this->currentStep = 2;
 
@@ -265,22 +293,34 @@ class AddParent extends Component
     //secondStepSubmit_edit
     public function secondStepSubmit_edit()
     {
-        $this->validate([
-        'Name_Mother' => 'required',
-        'Name_Mother_en' => 'required',
-        'Job_Mother' => 'required',
+        // $this->validate([
+        // 'National_ID_Mother' => [
+        //         'required',
+        //         'string',
+        //         'min:10',
+        //         'max:10',
+        //         Rule::unique('my__parents', 'National_ID_Father')->ignore($this->Parent_id),
+        //         Rule::unique('my__parents', 'National_ID_Mother')->ignore($this->Parent_id),
+        //     ],
+        // 'Passport_ID_Mother' => [
+        //         'required',
+        //         'string',
+        //         'min:10',
+        //         'max:10',
+        //         Rule::unique('my__parents', 'Passport_ID_Father')->ignore($this->Parent_id),
+        //         Rule::unique('my__parents', 'Passport_ID_Mother')->ignore($this->Parent_id),
+        //     ],
+        // 'Name_Mother' => 'required',
+        // 'Name_Mother_en' => 'required',
+        // 'Job_Mother' => 'required',
         // 'Job_Mother_en' => 'required',
-        // 'National_ID_Mother' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
-        // 'Passport_ID_Mother' => 'required|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
-        'National_ID_Mother' => 'required|string|min:10|max:10|regex:/[0-9]{9}/|unique:my__parents,National_ID_Mother|unique:my__parents,National_ID_Father,' . $this->id,
-            'Passport_ID_Mother' => 'required|unique:my__parents,Passport_ID_Mother|unique:my__parents,Passport_ID_Father,' . $this->id,
-        'Phone_Mother' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-        'Nationality_Mother_id' => 'required',
-        'Blood_Type_Mother_id' => 'required',
-        'Religion_Mother_id' => 'required',
-        'Address_Mother' => 'required',
-        'Address_Mother_en' => 'required',
-        ]);
+        // 'Phone_Mother' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+        // 'Nationality_Mother_id' => 'required',
+        // 'Blood_Type_Mother_id' => 'required',
+        // 'Religion_Mother_id' => 'required',
+        // 'Address_Mother' => 'required',
+        // 'Address_Mother_en' => 'required',
+        // ]);
         $this->updateMode = true;
         $this->currentStep = 3;
 
@@ -313,7 +353,7 @@ class AddParent extends Component
                 'Religion_Mother_id' => $this->Religion_Mother_id,
                 'Address_Mother' => ['en' => $this->Address_Mother_en, 'ar' => $this->Address_Mother]
             ]);
-
+            
         }
         toastr()->success(trans('messages.Update'));
         return redirect()->to('/add_parent');
