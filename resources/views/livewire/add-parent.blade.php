@@ -61,6 +61,7 @@
                             <div class="col-md-3">
                                 <div class="card mb-3">
                                     <img class="card-img-top" src="{{ $photo['url'] }}" alt="{{ $photo['file_name'] }}">
+                                                              
                                     <div class="card-body">
                                         <p class="card-text">{{ $photo['file_name'] }}</p>
                                     </div>

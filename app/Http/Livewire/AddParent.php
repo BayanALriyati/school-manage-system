@@ -241,12 +241,11 @@ class AddParent extends Component
         foreach ($attachments as $attachment) {
             $this->photos[] = [
                 'file_name' => $attachment->file_name,
-                'url' => Storage::disk('parent_attachments')->url($this->National_ID_Father . '/' . $attachment->file_name),
-                // 'url' => Storage::disk('parent_attachments')->url($attachment->file_name),
+                'url' => Storage::disk('parent_attachments')->url($this->National_ID_Father . '/' . $attachment->file_name),  
             ];
             
         }
-        dd($this->photos); 
+        // dd($this->photos); 
     }
 
     
@@ -361,11 +360,13 @@ class AddParent extends Component
 
     }
 
-    // public function delete($id){
-    //     My_Parent::findOrFail($id)->delete();
-    //     $this->successMessage = trans('messages.Delete');
-    //     return redirect()->to('/add_parent');
-    // }
+    public function delete($id){
+        My_Parent::findOrFail($id)->delete();
+        toastr()->error(trans('messages.Delete'));
+        // $this->successMessage = trans('messages.Delete');
+        return redirect()->to('/add_parent');
+    }
+   
 
     //back
     public function back($step)
