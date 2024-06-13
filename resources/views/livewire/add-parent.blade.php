@@ -60,7 +60,7 @@
                         @foreach ($photos as $photo)
                             <div class="col-md-3">
                                 <div class="card mb-3">
-                                    <img class="card-img-top" src="{{ $photo['url'] }}" alt="{{ $photo['file_name'] }}">
+                                    <img class="card-img-top" src="{{ asset($photo['url'])  }}" style="max-width: 200px; max-height: 200px;">
                                                               
                                     <div class="card-body">
                                         <p class="card-text">{{ $photo['file_name'] }}</p>
@@ -75,6 +75,7 @@
                         <div class="form-group">
                             <input type="file" wire:model="photos" accept="image/*" multiple>
                         </div>
+                        
                         <br>
 
                         <input type="hidden" wire:model="Parent_id">

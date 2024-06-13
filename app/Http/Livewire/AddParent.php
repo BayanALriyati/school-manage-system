@@ -152,7 +152,7 @@ class AddParent extends Component
                     ]);
                 }
             }
-            
+           
             toastr()->success(trans('messages.success'));
             return redirect()->to('/add_parent');
             // $this->successMessage = trans('messages.success');
@@ -243,9 +243,8 @@ class AddParent extends Component
                 'file_name' => $attachment->file_name,
                 'url' => Storage::disk('parent_attachments')->url($this->National_ID_Father . '/' . $attachment->file_name),  
             ];
-            
         }
-        // dd($this->photos); 
+        dd($this->photos); 
     }
 
     
