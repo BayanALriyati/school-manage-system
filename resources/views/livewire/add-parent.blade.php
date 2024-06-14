@@ -58,13 +58,20 @@
                     <h3>Existing Photos:</h3>
                     <div class="row">
                         @foreach ($photos as $photo)
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="card mb-3">
-                                    <img class="card-img-top" src="{{ asset($photo['url'])  }}" style="max-width: 200px; max-height: 200px;">
-                                                              
-                                    <div class="card-body">
+                                    {{-- <img class="card-img-top" src="{{ ($photo['url'])  }}" style="max-width: 200px; max-height: 200px;"> --}}
+
+                                    @if(is_array($photo))
+                                        <img class="card-img-top" src="{{ $photo['url'] }}" style="max-width: 200px; max-height: 200px;">
+                                        <div class="card-body">
+                                           <p class="card-text">{{ $photo['file_name'] }}</p>
+                                        </div>
+                                    @endif
+                      
+                                    {{-- <div class="card-body">
                                         <p class="card-text">{{ $photo['file_name'] }}</p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         @endforeach

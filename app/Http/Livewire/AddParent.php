@@ -19,8 +19,8 @@ class AddParent extends Component
     public $successMessage = '';
 
     public $catchError,$updateMode = false,$photos,$show_table=true,$Parent_id;
+   public $currentStep = 1,
 
-    public $currentStep = 1,
 
         // Father_INPUTS
         $Email, $Password,
@@ -238,13 +238,14 @@ class AddParent extends Component
         $this->Address_Mother_en = $My_Parent->getTranslation('Address_Mother', 'en');
         $this->Religion_Mother_id =$My_Parent->Religion_Mother_id;
         $attachments = ParentAttachment::where('parent_id', $this->Parent_id)->get();
+        $this->photos = [];
         foreach ($attachments as $attachment) {
             $this->photos[] = [
                 'file_name' => $attachment->file_name,
                 'url' => Storage::disk('parent_attachments')->url($this->National_ID_Father . '/' . $attachment->file_name),  
             ];
         }
-        dd($this->photos); 
+        // dd($this->photos); 
     }
 
     
@@ -351,6 +352,26 @@ class AddParent extends Component
                 'Religion_Mother_id' => $this->Religion_Mother_id,
                 'Address_Mother' => ['en' => $this->Address_Mother_en, 'ar' => $this->Address_Mother]
             ]);
+        // Handle new photo uploads
+        if ($this->photos) {
+            // Remove old photos if needed
+            $existingAttachments = ParentAttachment::where('parent_id', $this->Parent_id)->get();
+            foreach ($existingAttachments as $attachment) {
+                Storage::disk('parent_attachments')->delete($this->National_ID_Father . '/' . $attachment->file_name);
+                $attachment->delete();
+            }
+
+            // Save new photos
+            foreach ($this->photos as $photo) {
+                //  هات الاسم التابع لها -2 National_ID_Fatherافتح ملف باسم -1
+                $photo->storeAs($this->National_ID_Father, $photo->getClientOriginalName(), $disk = 'parent_attachments');
+                ParentAttachment::create([
+                    'file_name' => $photo->getClientOriginalName(),
+                    // هات اخر id بعد عمليه save
+                    'parent_id' => My_Parent::latest()->first()->id,
+                ]);
+            }
+        }
             
         }
         toastr()->success(trans('messages.Update'));
@@ -358,6 +379,7 @@ class AddParent extends Component
         // $this->successMessage = trans('messages.Update');
 
     }
+
 
     public function delete($id){
         My_Parent::findOrFail($id)->delete();
