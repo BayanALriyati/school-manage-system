@@ -52,5 +52,6 @@ return [
     'Finish' => 'Finish',
     'Attachments' => 'Attachments',
     'Processes' => 'Processes',
-   
+    'no_photos'=>'There are no photos to display.',
+    'Existing_Photos'=>'Existing Photos:',
 ];

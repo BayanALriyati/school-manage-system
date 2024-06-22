@@ -353,6 +353,26 @@ class AddParent extends Component
                 'Address_Mother' => ['en' => $this->Address_Mother_en, 'ar' => $this->Address_Mother]
             ]);
         // Handle new photo uploads
+        // if ($this->photos) {
+        //     // Remove old photos if needed
+        //     $existingAttachments = ParentAttachment::where('parent_id', $this->Parent_id)->get();
+        //     foreach ($existingAttachments as $attachment) {
+        //         Storage::disk('parent_attachments')->delete($this->National_ID_Father . '/' . $attachment->file_name);
+        //         $attachment->delete();
+        //     }
+
+        //     // Save new photos
+        //     foreach ($this->photos as $photo) {
+        //         //  هات الاسم التابع لها -2 National_ID_Fatherافتح ملف باسم -1
+        //         $photo->storeAs($this->National_ID_Father, $photo->getClientOriginalName(), $disk = 'parent_attachments');
+        //         ParentAttachment::create([
+        //             'file_name' => $photo->getClientOriginalName(),
+        //             // هات اخر id بعد عمليه save
+        //             'parent_id' => My_Parent::latest()->first()->id,
+        //         ]);
+        //     }
+        // }
+            
         if ($this->photos) {
             // Remove old photos if needed
             $existingAttachments = ParentAttachment::where('parent_id', $this->Parent_id)->get();
@@ -360,19 +380,24 @@ class AddParent extends Component
                 Storage::disk('parent_attachments')->delete($this->National_ID_Father . '/' . $attachment->file_name);
                 $attachment->delete();
             }
-
+        
             // Save new photos
             foreach ($this->photos as $photo) {
-                //  هات الاسم التابع لها -2 National_ID_Fatherافتح ملف باسم -1
-                $photo->storeAs($this->National_ID_Father, $photo->getClientOriginalName(), $disk = 'parent_attachments');
-                ParentAttachment::create([
-                    'file_name' => $photo->getClientOriginalName(),
-                    // هات اخر id بعد عمليه save
-                    'parent_id' => My_Parent::latest()->first()->id,
-                ]);
+                // Check if the photo is valid
+                if ($photo->isValid()) {
+                    $photoPath = $this->National_ID_Father . '/' . $photo->getClientOriginalName();
+                    // Store the photo
+                    Storage::disk('parent_attachments')->put($photoPath, file_get_contents($photo->getRealPath()));
+        
+                    // Create a new attachment record
+                    ParentAttachment::create([
+                        'file_name' => $photo->getClientOriginalName(),
+                        'parent_id' => $this->Parent_id,
+                    ]);
+                }
             }
         }
-            
+        
         }
         toastr()->success(trans('messages.Update'));
         return redirect()->to('/add_parent');

@@ -54,9 +54,6 @@ return [
     'Choose' => 'اختيار من القائمة',
     'Attachments' => 'المرفقات',
     'Processes' => 'العمليات',
-    
-
-
-
-
+    'no_photos'=>'لا توجد صور لعرضها.',
+    'Existing_Photos'=>'الصور الموجودة:',
 ];

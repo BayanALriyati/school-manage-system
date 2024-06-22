@@ -55,30 +55,29 @@
                         <br>
             @if ($updateMode && $photos)
                 <div>
-                    <h3>Existing Photos:</h3>
+                    <h3>{{trans('Parent_trans.Existing_Photos')}}</h3>
                     <div class="row">
-                        @foreach ($photos as $photo)
-                            <div class="col">
-                                <div class="card mb-3">
+                      @foreach ($photos as $photo)
+                        <div class="col">
+                                <div class="card mb-3 mt-5">
                                     {{-- <img class="card-img-top" src="{{ ($photo['url'])  }}" style="max-width: 200px; max-height: 200px;"> --}}
-
-                                    @if(is_array($photo))
-                                        <img class="card-img-top" src="{{ $photo['url'] }}" style="max-width: 200px; max-height: 200px;">
+                                    @if(is_array($photo) && isset($photo['url']))
+                                    
+                                        <img class="card-img-top" src="{{ ($photo['url']) }}" style="max-width: 600px; max-height: 600px;">
                                         <div class="card-body">
                                            <p class="card-text">{{ $photo['file_name'] }}</p>
                                         </div>
                                     @endif
-                      
-                                    {{-- <div class="card-body">
-                                        <p class="card-text">{{ $photo['file_name'] }}</p>
-                                    </div> --}}
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach  
                     </div>
                 </div>
                 <br>
-            @endif
+                @else
+                    <h3>{{trans('Parent_trans.no_photos')}}</h3>
+                @endif
+            <br><br>
                         <div class="form-group">
                             <input type="file" wire:model="photos" accept="image/*" multiple>
                         </div>
